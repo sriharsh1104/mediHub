@@ -5,10 +5,10 @@ export interface RegisterResponse {
     token: string;
     data: {
       _id: string;
-      emailAddress: string;
-      password: string;
+      email: string;
       firstName: string;
       lastName: string;
+      password: string;
     };
   }
   

@@ -1,10 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import "tailwindcss/tailwind.css"; // Import the generated Tailwind CSS file
 import { userRegister } from "../Api/Actions/user.action";
 import { RegisterResponse } from "../../interface/ApiResponses/RegisterResponse";
+import dawai2 from "../../Assests/dawai3.webp";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -39,22 +40,27 @@ const Register: React.FC = () => {
       .required("Confirm Password is required"),
   });
 
-  const initialValues = {
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    confirmPassword: "",
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: registerSchema,
+    onSubmit: async (values) => {},
+  });
 
-  const handleRegister = async (values: any) => {
+  const handleRegister = async () => {
     try {
       const result: RegisterResponse = await userRegister({
-        email: values.email.trim(),
-        password: values.password.trim(),
-        lastName: values.lastName.trim(),
-        firstName: values.firstName.trim(),
+        emailAddress: formik.values.email.trim(),
+        lastName: formik.values.lastName.trim(),
+        password: formik.values.password.trim(),
+        firstName: formik.values.firstName.trim(),
       });
+      console.log("first212", result);
 
       if (result?.status === 200) {
         // dispatch(setJwtToken(result?.token));
@@ -62,7 +68,7 @@ const Register: React.FC = () => {
         navigate("/");
       } else {
         // toaster.info("Login failed");
-        navigate("/");
+        // navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -70,7 +76,15 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    <div
+      className="min-h-screen py-6 flex flex-col justify-center sm:py-12"
+      style={{
+        backgroundImage: `url(${dawai2})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
@@ -79,7 +93,7 @@ const Register: React.FC = () => {
               <h1 className="text-2xl font-semibold">Register</h1>
             </div>
             <Formik
-              initialValues={initialValues}
+              initialValues={formik.initialValues}
               validationSchema={registerSchema}
               onSubmit={handleRegister}
             >
@@ -90,7 +104,17 @@ const Register: React.FC = () => {
                       id="email"
                       name="email"
                       type="text"
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                      error={
+                        formik.errors.email && formik.touched.email ? (
+                          <span className="error-message">
+                            {formik.errors.email}
+                          </span>
+                        ) : null
+                      }
+                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
                       placeholder="Email address"
                     />
                     <ErrorMessage
@@ -102,23 +126,7 @@ const Register: React.FC = () => {
                       Email Address
                     </label>
                   </div>
-                  <div className="relative">
-                    <Field
-                      id="password"
-                      name="password"
-                      type="password"
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                      placeholder="Password"
-                    />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-red-500"
-                    />
-                    <label className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                      Password
-                    </label>
-                  </div>
+
                   <div className="relative">
                     <Field
                       id="firstName"
@@ -126,6 +134,16 @@ const Register: React.FC = () => {
                       type="text"
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="First Name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.firstName}
+                      error={
+                        formik.errors.firstName && formik.touched.firstName ? (
+                          <span className="error-message">
+                            {formik.errors.firstName}
+                          </span>
+                        ) : null
+                      }
                     />
                     <ErrorMessage
                       name="firstName"
@@ -143,6 +161,16 @@ const Register: React.FC = () => {
                       type="text"
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="Last Name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.lastName}
+                      error={
+                        formik.errors.lastName && formik.touched.lastName ? (
+                          <span className="error-message">
+                            {formik.errors.lastName}
+                          </span>
+                        ) : null
+                      }
                     />
                     <ErrorMessage
                       name="lastName"
@@ -155,11 +183,49 @@ const Register: React.FC = () => {
                   </div>
                   <div className="relative">
                     <Field
+                      id="password"
+                      name="password"
+                      type="password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                      error={
+                        formik.errors.password && formik.touched.password ? (
+                          <span className="error-message">
+                            {formik.errors.password}
+                          </span>
+                        ) : null
+                      }
+                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                      placeholder="Password"
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-red-500"
+                    />
+                    <label className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                      Password
+                    </label>
+                  </div>
+                  <div className="relative">
+                    <Field
                       id="confirmPassword"
                       name="confirmPassword"
                       type="password"
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="Confirm Password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                      error={
+                        formik.errors.confirmPassword &&
+                        formik.touched.confirmPassword ? (
+                          <span className="error-message">
+                            {formik.errors.confirmPassword}
+                          </span>
+                        ) : null
+                      }
                     />
                     <ErrorMessage
                       name="confirmPassword"
@@ -173,6 +239,7 @@ const Register: React.FC = () => {
                   <div className="relative">
                     <button
                       type="submit"
+                      onClick={handleRegister}
                       className="bg-cyan-500 text-white rounded-md px-2 py-1"
                     >
                       Register
