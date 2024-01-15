@@ -6,6 +6,7 @@ const initialState: UserData = {
   firstName: "",
   lastName: "",
   emailAddress: "",
+  companyId:"",
 };
 
 // UserData SLICE
@@ -17,6 +18,7 @@ export const userDataSlice = createSlice({
       state.firstName = "";
       state.lastName = "";
       state.emailAddress = "";
+      state.companyId ="";
       
     },
     setFirstName: (state, action) => {
@@ -28,6 +30,9 @@ export const userDataSlice = createSlice({
     setEmailAddress: (state, action) => {
       state.emailAddress = action.payload;
     },
+    setCompanyId: (state, action) => {
+      state.companyId = action.payload;
+    },
 
   },
 });
@@ -37,6 +42,7 @@ export const {
   setFirstName,
   setlastName,
   setEmailAddress,
+  setCompanyId,
 
 } = userDataSlice.actions;
 export default userDataSlice.reducer;
