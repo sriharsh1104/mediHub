@@ -45,8 +45,6 @@ const Dashboard: React.FC = () => {
     <div className="bg-gray-800 mx-auto mt-8">
       <form onSubmit={handleRegister}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CommanHeader />
-
           <div className="bg-white p-4 rounded-md shadow-md">
             <label
               htmlFor="companyId"
