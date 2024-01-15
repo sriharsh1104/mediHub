@@ -58,9 +58,9 @@ const Login = () => {
 
           // Check if the role is admin
           if (loginToken.role === "Admin") {
-            navigate("/dashboard");
+            navigate("/auth/dashboard");
           } else {
-            navigate("/dashboardEmploy");
+            navigate("/auth/dashboardEmploy");
           }
         }
       } else {

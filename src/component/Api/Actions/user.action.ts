@@ -67,6 +67,7 @@ export const userLogin = async (data: any) => {
         empId,
         companyId,
     } = data;
+    console.log('firssadakjndskjat', data)
     try {
       let result: any = await apiCallPost(
 

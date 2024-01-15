@@ -1,17 +1,17 @@
-import React from "react";
 import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { addEmployInCompany } from "../Api/Actions/user.action";
 import { useSelector } from "react-redux";
 import { EmployManger } from "../../interface/ApiResponses/EmployManger";
-// import { EmployeeResponse } from "../../interface/ApiResponses/EmployeeResponse";
+import "./AddEmployee.scss";
 
 const EmployMange = () => {
   const navigate = useNavigate();
   const organizationId = useSelector(
     (state: any) => state?.userDataSlice?.companyId
   );
+  console.log('1231', organizationId)
 
   const employeeSchema = Yup.object({
     name: Yup.string().required("Required"),
@@ -29,7 +29,6 @@ const EmployMange = () => {
       designation: "",
       salary: "",
       empId: 0,
-      companyId: organizationId,
     },
     validationSchema: employeeSchema,
     onSubmit: async () => {},
@@ -37,13 +36,12 @@ const EmployMange = () => {
   const addEmployForOrganization = async () => {
     try {
       const result: EmployManger = await addEmployInCompany({
-
         name: formik.values.name.trim(),
         email: formik.values.email.trim(),
-        designation : formik.values.designation.trim(),
+        designation: formik.values.designation.trim(),
         salary: formik.values.salary.trim(),
         empId: formik.values.empId,
-        companyId: formik.values.companyId.trim,
+        companyId: organizationId,
       });
       if (result?.status === 200) {
         // Handle success, e.g., show a success message
@@ -59,56 +57,74 @@ const EmployMange = () => {
 
   return (
     <div>
-      <h1>Add Employee</h1>
       <Formik
         initialValues={formik.initialValues}
         validationSchema={employeeSchema}
         onSubmit={addEmployForOrganization}
       >
         <Form>
-          <div>
-            <label htmlFor="name">First Name</label>
-            <Field id="name" name="name" type="text" placeholder="Enter name" />
+        <div>
+            <label htmlFor="name"> Name </label>
+            <Field
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Enter Your Name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+            />
             <ErrorMessage name="name" component="div" />
           </div>
-
           <div>
-            <label htmlFor="email">Last Name</label>
+            <label htmlFor="email"> Email</label>
             <Field
               id="email"
               name="email"
               type="text"
-              placeholder="Enter email"
+              placeholder="Enter Your email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
             />
             <ErrorMessage name="email" component="div" />
           </div>
           <div>
-            <label htmlFor="designation">Last Name</label>
+            <label htmlFor="designation">Designation</label>
             <Field
               id="designation"
               name="designation"
               type="text"
               placeholder="Enter designation"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.designation}
             />
             <ErrorMessage name="designation" component="div" />
           </div>
           <div>
-            <label htmlFor="salary">Last Name</label>
+            <label htmlFor="salary"> Salary</label>
             <Field
               id="salary"
               name="salary"
               type="text"
               placeholder="Enter salary"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.salary}
             />
             <ErrorMessage name="salary" component="div" />
           </div>
           <div>
-            <label htmlFor="empId">Last Name</label>
+            <label htmlFor="empId"> Emp-Id</label>
             <Field
               id="empId"
               name="empId"
               type="text"
               placeholder="Enter empId"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.empId}
             />
             <ErrorMessage name="empId" component="div" />
           </div>
@@ -117,14 +133,6 @@ const EmployMange = () => {
             <button onClick={addEmployForOrganization} type="submit">
               Add Employee
             </button>
-            <div>
-              <p>
-                Do you want to go back?{" "}
-                <Link to="/" className="text-blue-500 hover:underline">
-                  Go back
-                </Link>
-              </p>
-            </div>
           </div>
         </Form>
       </Formik>

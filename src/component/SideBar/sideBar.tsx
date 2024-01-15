@@ -9,7 +9,7 @@ const Sidebar = () => {
   const NavLinks = [
     {
       label: "Dashboard",
-      to: "/",
+      to: "/auth/dashboard",
       activePaths: [
         {
           id: 1,
@@ -19,20 +19,16 @@ const Sidebar = () => {
     },
     {
       label: "Manage Employees",
-      to: "/employmanage",
+      to: "/auth/employmanage",
     },
     {
       label: "My Profile",
-      to: "/profile",
+      to: "/auth/profile",
     },
     {
       label: "Category",
-      to: "/category",
+      to: "/auth/category",
     },
-    // {
-    //   label: "Logout",
-    //   to: "/Logout",
-    // },
   ];
 
   const location = useLocation();
