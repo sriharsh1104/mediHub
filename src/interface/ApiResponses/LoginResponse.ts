@@ -8,6 +8,7 @@ export interface LoginResponse {
       _id: string;
       emailAddress: string;
       accessToken:string;
+      companyId: string;
     };
   }
   

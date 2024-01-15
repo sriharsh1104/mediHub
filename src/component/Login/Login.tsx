@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { Dispatch} from "react";
 import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import "tailwindcss/tailwind.css"; // Import the generated Tailwind CSS file
@@ -8,8 +9,11 @@ import dawai2 from "../../Assests/dawai3.webp";
 import jwt from "jsonwebtoken";
 import toaster from "../comman/Toast";
 import { JwtPayload } from "jsonwebtoken";
+import { setCompanyId } from "../../redux/userData/userData";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
 
   const loginSchema = Yup.object({
@@ -41,11 +45,9 @@ const Login = () => {
       });
 
       if (result?.status === 200) {
+        dispatch(setCompanyId(result?.data?.companyId));
         localStorage.setItem("accessToken", result?.data?.accessToken);
-
         const decodedToken = jwt.decode(result?.data?.accessToken);
-        console.log("first", decodedToken);
-
         // Check if the decoded token is not null and is an object with the 'role' property
         if (
           decodedToken &&

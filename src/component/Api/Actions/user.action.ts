@@ -92,4 +92,27 @@ export const userLogin = async (data: any) => {
       console.error(error);
     }
   };
+  export const getAllEmployeesForAdmin = async (data: any) => {
+    const {
+        companyId,
+    } = data;
+    try {
+      let result: any = await apiCallPost(
+
+        APIURL["ALL_EMPLOYEES"],
+        {
+          companyId:companyId,
+        },
+        {},
+        true,
+        {}
+      );
+  
+      if (result?.status === 200) {
+        return result;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
