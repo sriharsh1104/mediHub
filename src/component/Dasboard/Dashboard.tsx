@@ -1,22 +1,22 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { ImageData } from '../../interface/imageData';
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { ImageData } from "../../interface/imageData";
 // import "./Dashboard.scss";
-import CommanHeader from '../commanHeader/CommanHeader';
+import CommanHeader from "../commanHeader/CommanHeader";
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required('Title is required'),
-  description: Yup.string().required('Description is required'),
-  image: Yup.string().url('Invalid URL').required('Image URL is required'),
+  title: Yup.string().required("Title is required"),
+  description: Yup.string().required("Description is required"),
+  image: Yup.string().url("Invalid URL").required("Image URL is required"),
 });
 
 const Dashboard: React.FC = () => {
   const initialValues: ImageData = {
     id: 1,
-    image: 'https://placekitten.com/200/300',
-    title: 'Image 1',
-    description: 'Description for Image 1',
+    image: "https://placekitten.com/200/300",
+    title: "Image 1",
+    description: "Description for Image 1",
   };
 
   const formik = useFormik({
@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
     validationSchema,
     onSubmit: (values) => {
       // Handle form submission here
-      console.log('Form submitted:', values);
+      console.log("Form submitted:", values);
     },
   });
 
@@ -32,8 +32,6 @@ const Dashboard: React.FC = () => {
     <div className="bg-gray-800 mx-auto mt-8">
       <form onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CommanHeader />
-
           <div className="bg-white p-4 rounded-md shadow-md">
             <img
               src={formik.values.image}
@@ -57,7 +55,10 @@ const Dashboard: React.FC = () => {
               <div className="text-red-600">{formik.errors.title}</div>
             )}
 
-            <label htmlFor="description" className="block text-xl font-semibold mb-2">
+            <label
+              htmlFor="description"
+              className="block text-xl font-semibold mb-2"
+            >
               Description
             </label>
             <textarea
@@ -90,7 +91,10 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded-md">
+        <button
+          type="submit"
+          className="mt-4 bg-blue-500 text-white p-2 rounded-md"
+        >
           Submit
         </button>
       </form>

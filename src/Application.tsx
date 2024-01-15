@@ -9,6 +9,7 @@ import EmployManage from "./component/Employmangement/EmployMange";
 import Category from "./component/Category/Category";
 import Profile from "./component/Profile/Profile";
 import DashboardEmploy from "./component/DasboardForAdmin/DashboardEmploy";
+import AuthLayout from "./Layouts/AuthLayout";
 /**GET STATES FROM STORE */
 const Application: React.FC = () => {
   const router = createBrowserRouter([
@@ -22,33 +23,34 @@ const Application: React.FC = () => {
       element: <Register />,
       errorElement: <ErrorBoundary />,
     },
+
     {
-      path: "/dashboardEmploy",
-      element: <DashboardEmploy />,
-      errorElement: <ErrorBoundary />,
-    },
-    {
-      path: "/",
-      element: <Sidebar />,
+      path: "/auth",
+      element: <AuthLayout />,
       errorElement: <ErrorBoundary />,
       children: [
         {
+          path: "dashboardEmploy",
+          element: <DashboardEmploy />,
+          errorElement: <ErrorBoundary />,
+        },
+        {
           index: true,
-          path: "/dashboard",
+          path: "dashboard",
           element: <Dashboard />,
         },
         {
-          path: "/employmanage",
+          path: "employmanage",
           element: <EmployManage />,
           errorElement: <ErrorBoundary />,
         },
         {
-          path: "/category",
+          path: "category",
           element: <Category />,
           errorElement: <ErrorBoundary />,
         },
         {
-          path: "/profile",
+          path: "profile",
           element: <Profile />,
           errorElement: <ErrorBoundary />,
         },
