@@ -6,25 +6,34 @@ import "tailwindcss/tailwind.css"; // Import the generated Tailwind CSS file
 import { userRegister } from "../Api/Actions/user.action";
 import { RegisterResponse } from "../../interface/ApiResponses/RegisterResponse";
 import dawai2 from "../../Assests/dawai3.webp";
+import toaster from "../comman/Toast";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
 
-  const registerSchema = Yup.object({
+  const registerSchema = Yup.object().shape({
     email: Yup.string()
+      .required("Email is required")
       .email("Invalid Email")
       .max(300, "Maximum 300 Characters Are Allowed For Email.")
       .matches(
         /^(.+)@(gmail\.com|yahoo\.com|hotmail\.com)$/,
         "Please enter a valid email address with @gmail.com, @yahoo.com, or @hotmail.com."
-      )
-      .required("Email is required"),
+      ),
     firstName: Yup.string()
       .required("First Name is required")
       .min(2, "Too Short!")
       .max(25, "Too Long!"),
     lastName: Yup.string()
       .required("Last Name is required")
+      .min(2, "Too Short!")
+      .max(25, "Too Long!"),
+    organizationName: Yup.string()
+      .required("Company Name Is Required")
+      .min(2, "Too Short!")
+      .max(25, "Too Long!"),
+    numberOfEmployes: Yup.string()
+      .required("Number of Employees Is Required")
       .min(2, "Too Short!")
       .max(25, "Too Long!"),
     password: Yup.string()
@@ -36,8 +45,8 @@ const Register: React.FC = () => {
         "Password Must Contain At Least 8 Characters Including At Least One Uppercase, One Lowercase, One Number And One Special Case Character. Blank Spaces Are Not Allowed."
       ),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords do not Match")
-      .required("Confirm Password is required"),
+      .oneOf([Yup.ref("password")], "Passwords Do Not Match")
+      .required("Confirm Password Is Required"),
   });
 
   const formik = useFormik({
@@ -45,6 +54,8 @@ const Register: React.FC = () => {
       email: "",
       firstName: "",
       lastName: "",
+      organizationName: "",
+      numberOfEmployes: "",
       password: "",
       confirmPassword: "",
     },
@@ -55,20 +66,19 @@ const Register: React.FC = () => {
   const handleRegister = async () => {
     try {
       const result: RegisterResponse = await userRegister({
-        emailAddress: formik.values.email.trim(),
-        lastName: formik.values.lastName.trim(),
-        password: formik.values.password.trim(),
         firstName: formik.values.firstName.trim(),
+        lastName: formik.values.lastName.trim(),
+        emailAddress: formik.values.email.trim(),
+        password: formik.values.password.trim(),
+        companyName: formik.values.organizationName.trim(),
+        noOfEmployees: formik.values.numberOfEmployes.trim(),
       });
       console.log("first212", result);
 
       if (result?.status === 200) {
-        // dispatch(setJwtToken(result?.token));
-
         navigate("/");
       } else {
-        // toaster.info("Login failed");
-        // navigate("/");
+        toaster.info("Registration Failed");
       }
     } catch (error) {
       console.error(error);
@@ -107,6 +117,11 @@ const Register: React.FC = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
+                      isInvalid={
+                        formik.touched.email && formik.errors.email
+                          ? "is-invalid"
+                          : ""
+                      }
                       error={
                         formik.errors.email && formik.touched.email ? (
                           <span className="error-message">
@@ -135,8 +150,13 @@ const Register: React.FC = () => {
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="First Name"
                       onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
                       value={formik.values.firstName}
+                      isInvalid={
+                        formik.touched.firstName && formik.errors.firstName
+                          ? "is-invalid"
+                          : ""
+                      }
+                      onBlur={formik.handleBlur}
                       error={
                         formik.errors.firstName && formik.touched.firstName ? (
                           <span className="error-message">
@@ -164,6 +184,11 @@ const Register: React.FC = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.lastName}
+                      isInvalid={
+                        formik.touched.lastName && formik.errors.lastName
+                          ? "is-invalid"
+                          : ""
+                      }
                       error={
                         formik.errors.lastName && formik.touched.lastName ? (
                           <span className="error-message">
@@ -183,12 +208,91 @@ const Register: React.FC = () => {
                   </div>
                   <div className="relative">
                     <Field
+                      id="organizationName"
+                      name="organizationName"
+                      type="text"
+                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                      placeholder="Last Name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.organizationName}
+                      isInvalid={
+                        formik.touched.organizationName &&
+                        formik.errors.organizationName
+                          ? "is-invalid"
+                          : ""
+                      }
+                      error={
+                        formik.errors.organizationName &&
+                        formik.touched.organizationName ? (
+                          <span className="error-message">
+                            {formik.errors.organizationName}
+                          </span>
+                        ) : null
+                      }
+                    />
+                    <ErrorMessage
+                      name="lastName"
+                      component="div"
+                      className="text-red-500"
+                    />
+                    <label className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                      Organization Name
+                    </label>
+                  </div>
+                  <div className="relative">
+                    <Field
+                      as="select"
+                      id="numberOfEmployes"
+                      name="numberOfEmployes" // Corrected field name
+                      onChange={formik.handleChange}
+                      value={formik.values.numberOfEmployes}
+                      onBlur={formik.handleBlur}
+                      isInvalid={
+                        formik.touched.numberOfEmployes &&
+                        formik.errors.numberOfEmployes
+                          ? "is-invalid"
+                          : ""
+                      }
+                      className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600 mt-1"
+                    >
+                      <option value="" label="Select Number of Employees" />
+                      <option value="1-49">1-49</option>
+                      <option value="50-99">50-99</option>
+                      <option value="100-249">100-249</option>
+                      <option value="250-499">250-499</option>
+                      <option value="500-999">500-999</option>
+                      <option value="1000-2499">1000-2499</option>
+                      <option value="2500-5000">2500-5000</option>
+                      <option value="5000+">5000+</option>
+                    </Field>
+                    <ErrorMessage
+                      name="numberOfEmployes"
+                      component="div"
+                      className="text-red-500"
+                    />
+                    <ErrorMessage
+                      name="lastName"
+                      component="div"
+                      className="text-red-500"
+                    />
+                    <label className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                      No. Of Employes
+                    </label>
+                  </div>
+                  <div className="relative">
+                    <Field
                       id="password"
                       name="password"
                       type="password"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
+                      isInvalid={
+                        formik.touched.password && formik.errors.password
+                          ? "is-invalid"
+                          : ""
+                      }
                       error={
                         formik.errors.password && formik.touched.password ? (
                           <span className="error-message">
@@ -217,6 +321,12 @@ const Register: React.FC = () => {
                       placeholder="Confirm Password"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      isInvalid={
+                        formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword
+                          ? "is-invalid"
+                          : ""
+                      }
                       value={formik.values.confirmPassword}
                       error={
                         formik.errors.confirmPassword &&
@@ -248,7 +358,10 @@ const Register: React.FC = () => {
                   <div className="mt-4 text-sm">
                     <p>
                       Already Have Account?{" "}
-                      <Link to="/" className="text-cyan-500 hover:underline">
+                      <Link
+                        to="/login"
+                        className="text-cyan-500 hover:underline"
+                      >
                         login here
                       </Link>
                     </p>

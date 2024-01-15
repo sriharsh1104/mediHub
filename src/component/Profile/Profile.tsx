@@ -5,11 +5,8 @@ import "tailwindcss/tailwind.css"; // Import the generated Tailwind CSS file
 import { userLogin } from "../Api/Actions/user.action";
 import { LoginResponse } from "../../interface/ApiResponses/LoginResponse";
 import dawai2 from "../../Assests/dawai3.webp";
-import jwt from "jsonwebtoken";
-import toaster from "../comman/Toast";
-import { JwtPayload } from "jsonwebtoken";
 
-const Login = () => {
+const Profile = () => {
   const navigate = useNavigate();
 
   const loginSchema = Yup.object({
@@ -41,28 +38,10 @@ const Login = () => {
       });
 
       if (result?.status === 200) {
-        localStorage.setItem("accessToken", result?.data?.accessToken);
-
-        const decodedToken = jwt.decode(result?.data?.accessToken);
-        console.log("first", decodedToken);
-
-        // Check if the decoded token is not null and is an object with the 'role' property
-        if (
-          decodedToken &&
-          typeof decodedToken === "object" &&
-          "role" in decodedToken
-        ) {
-          const loginToken = decodedToken as JwtPayload;
-
-          // Check if the role is admin
-          if (loginToken.role === "Admin") {
-            navigate("/dashboard");
-          } else {
-            navigate("/dashboardEmploy");
-          }
-        }
+        localStorage.setItem('accessToken', result?.data?.accessToken);
+        navigate("/");
       } else {
-        toaster.info("Login failed");
+        // toaster.info("Login failed");
         // navigate("/");
       }
     } catch (error) {
@@ -158,4 +137,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Profile;

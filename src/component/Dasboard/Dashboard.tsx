@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ImageData } from '../../interface/imageData';
+// import "./Dashboard.scss";
 import CommanHeader from '../commanHeader/CommanHeader';
 
 const validationSchema = Yup.object().shape({
@@ -28,7 +29,7 @@ const Dashboard: React.FC = () => {
   });
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="bg-gray-800 mx-auto mt-8">
       <form onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CommanHeader />
