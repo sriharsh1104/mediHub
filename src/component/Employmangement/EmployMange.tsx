@@ -3,21 +3,23 @@ import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { addEmployInCompany } from "../Api/Actions/user.action";
+import { useSelector } from "react-redux";
+import { EmployManger } from "../../interface/ApiResponses/EmployManger";
 // import { EmployeeResponse } from "../../interface/ApiResponses/EmployeeResponse";
 
 const EmployMange = () => {
   const navigate = useNavigate();
+  const organizationId = useSelector(
+    (state: any) => state?.userDataSlice?.companyId
+  );
 
   const employeeSchema = Yup.object({
-    // Define validation schema for employee details
     name: Yup.string().required("Required"),
     email: Yup.string().required("Required"),
     designation: Yup.string().required("Required"),
     salary: Yup.string().required("Required"),
     empId: Yup.string().required("Required"),
     companyId: Yup.string().required("Required"),
-
-    // Add more fields as needed
   });
 
   const formik = useFormik({
@@ -27,15 +29,22 @@ const EmployMange = () => {
       designation: "",
       salary: "",
       empId: 0,
-      companyId: "",
+      companyId: organizationId,
     },
     validationSchema: employeeSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async () => {},
   });
-  const addEmployForOrganization = async (values: any) => {
+  const addEmployForOrganization = async () => {
     try {
-      const result: any = await addEmployInCompany(values); // API call to add employee
+      const result: EmployManger = await addEmployInCompany({
 
+        name: formik.values.name.trim(),
+        email: formik.values.email.trim(),
+        designation : formik.values.designation.trim(),
+        salary: formik.values.salary.trim(),
+        empId: formik.values.empId,
+        companyId: formik.values.companyId.trim,
+      });
       if (result?.status === 200) {
         // Handle success, e.g., show a success message
         console.log("Employee added successfully");
@@ -103,19 +112,11 @@ const EmployMange = () => {
             />
             <ErrorMessage name="empId" component="div" />
           </div>
-          <div>
-            <label htmlFor="companyId">Last Name</label>
-            <Field
-              id="companyId"
-              name="companyId"
-              type="text"
-              placeholder="Enter companyId"
-            />
-            <ErrorMessage name="companyId" component="div" />
-          </div>
 
           <div>
-            <button type="submit">Add Employee</button>
+            <button onClick={addEmployForOrganization} type="submit">
+              Add Employee
+            </button>
             <div>
               <p>
                 Do you want to go back?{" "}

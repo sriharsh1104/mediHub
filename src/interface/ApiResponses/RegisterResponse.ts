@@ -11,6 +11,7 @@ export interface RegisterResponse {
       password: string;
       companyName:string;
       organizationName:string;
+      companyId:string;
     };
   }
   

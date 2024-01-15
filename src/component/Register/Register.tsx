@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ Dispatch} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
@@ -7,8 +7,11 @@ import { userRegister } from "../Api/Actions/user.action";
 import { RegisterResponse } from "../../interface/ApiResponses/RegisterResponse";
 import dawai2 from "../../Assests/dawai3.webp";
 import toaster from "../comman/Toast";
+import { useDispatch } from "react-redux";
+import { setCompanyId } from "../../redux/userData/userData";
 
 const Register: React.FC = () => {
+  const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
 
   const registerSchema = Yup.object().shape({
@@ -76,6 +79,8 @@ const Register: React.FC = () => {
       console.log("first212", result);
 
       if (result?.status === 200) {
+        dispatch(setCompanyId(result?.data?.companyId));
+
         navigate("/");
       } else {
         toaster.info("Registration Failed");

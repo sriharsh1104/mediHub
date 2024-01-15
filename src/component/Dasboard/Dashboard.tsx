@@ -1,101 +1,75 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ImageData } from "../../interface/imageData";
 // import "./Dashboard.scss";
 import CommanHeader from "../commanHeader/CommanHeader";
+import { useDispatch, useSelector } from "react-redux";
+import toaster from "../comman/Toast";
+import { getAllEmployeesForAdmin } from "../Api/Actions/user.action";
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string().required("Description is required"),
-  image: Yup.string().url("Invalid URL").required("Image URL is required"),
-});
+const validationSchema = Yup.object().shape({});
 
 const Dashboard: React.FC = () => {
-  const initialValues: ImageData = {
-    id: 1,
-    image: "https://placekitten.com/200/300",
-    title: "Image 1",
-    description: "Description for Image 1",
-  };
+  const dispatch: Dispatch<any> = useDispatch();
+  const organizationId = useSelector(
+    (state: any) => state.userDataSlice?.companyId
+  );
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      companyId: organizationId, // Set companyId as the only initial value
+    },
     validationSchema,
     onSubmit: (values) => {
-      // Handle form submission here
-      console.log("Form submitted:", values);
+      // Handle form submission logic here
     },
   });
 
+  const handleRegister = async () => {
+    try {
+      const result: any = await getAllEmployeesForAdmin({
+        companyId: formik.values.companyId,
+      });
+      console.log("first212", result);
+
+      if (result?.status === 200) {
+      } else {
+        toaster.info("Registration Failed");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="bg-gray-800 mx-auto mt-8">
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={handleRegister}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="bg-white p-4 rounded-md shadow-md">
-            <img
-              src={formik.values.image}
-              alt={formik.values.title}
-              className="object-cover w-full h-48 rounded-md mb-4"
-            />
-
-            <label htmlFor="title" className="block text-xl font-semibold mb-2">
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.title}
-              className="w-full p-2 mb-2 border rounded-md"
-            />
-            {formik.touched.title && formik.errors.title && (
-              <div className="text-red-600">{formik.errors.title}</div>
-            )}
-
             <label
-              htmlFor="description"
+              htmlFor="companyId"
               className="block text-xl font-semibold mb-2"
             >
-              Description
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.description}
-              className="w-full p-2 mb-2 border rounded-md"
-            />
-            {formik.touched.description && formik.errors.description && (
-              <div className="text-red-600">{formik.errors.description}</div>
-            )}
-
-            <label htmlFor="image" className="block text-xl font-semibold mb-2">
-              Image URL
+              Company ID
             </label>
             <input
               type="text"
-              id="image"
-              name="image"
+              id="companyId"
+              name="companyId"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.image}
+              value={formik.values.companyId}
               className="w-full p-2 mb-2 border rounded-md"
             />
-            {formik.touched.image && formik.errors.image && (
-              <div className="text-red-600">{formik.errors.image}</div>
-            )}
           </div>
         </div>
 
         <button
+          onClick={handleRegister}
           type="submit"
           className="mt-4 bg-blue-500 text-white p-2 rounded-md"
         >
-          Submit
+          Add Member
         </button>
       </form>
     </div>
