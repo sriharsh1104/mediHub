@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Dispatch} from "react";
+import { Dispatch } from "react";
 import ButtonCustom from "../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../Common/Inputs/InputCustom";
 import "./Login.scss";
@@ -19,20 +19,19 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
 
-
   const loginSchema = Yup.object().shape({
     address: Yup.string().required("*This Field is required"),
   });
   const formik = useFormik({
     initialValues: {
-        email: "",
-        firstName: "",
-        lastName: "",
-        companyName: "",
-        numberOfEmployees: "",
-        password: "",
-        confirmPassword: "",
-      },
+      email: "",
+      firstName: "",
+      lastName: "",
+      companyName: "",
+      numberOfEmployees: "",
+      password: "",
+      confirmPassword: "",
+    },
     validationSchema: loginSchema,
     onSubmit: async (values) => {},
   });
@@ -46,7 +45,6 @@ const Register = () => {
         numberOfEmployees: formik.values.numberOfEmployees.trim(),
         password: formik.values.password.trim(),
         confirmPassword: formik.values.confirmPassword.trim(),
-
       });
       console.log("3213131", result);
 
@@ -70,7 +68,7 @@ const Register = () => {
           <Row className="align-items-center">
             <Col lg={6}>
               <div className="login_page_img">
-                <img src={oraora} height={550}  alt="login_bg" />
+                <img src={oraora} height={550} alt="login_bg" />
               </div>
             </Col>
             <Col lg={6}>
@@ -86,7 +84,6 @@ const Register = () => {
                     name="email"
                     type="text"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.email}
                     isInvalid={formik.touched.email && !!formik.errors.email}
                     error={
@@ -104,7 +101,6 @@ const Register = () => {
                     name="firstName"
                     type="text"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.firstName}
                     isInvalid={
                       formik.touched.firstName && !!formik.errors.firstName
@@ -124,7 +120,6 @@ const Register = () => {
                     name="lastName"
                     type="text"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.lastName}
                     isInvalid={
                       formik.touched.lastName && !!formik.errors.lastName
@@ -150,13 +145,19 @@ const Register = () => {
                       formik.touched.companyName && !!formik.errors.companyName
                     }
                     error={
-                      formik.errors.companyName && formik.touched.companyName ? (
+                      formik.errors.companyName &&
+                      formik.touched.companyName ? (
                         <span className="error-message">
                           {formik.errors.companyName}
                         </span>
                       ) : null
                     }
-                  />
+                  >
+                    <option value="" label="Select number of employees" />
+                    <option value="1-10" label="1-10 employees" />
+                    <option value="11-50" label="11-50 employees" />
+                    <option value="51-100" label="51-100 employees" />
+                  </InputCustom>
                   <InputCustom
                     label="NO. OF EMPLOYEES "
                     placeholder="Number Of Employees"
@@ -164,14 +165,14 @@ const Register = () => {
                     name="numberOfEmployees"
                     type="text"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.numberOfEmployees}
                     isInvalid={
-                      formik.touched.numberOfEmployees && !!formik.errors.numberOfEmployees
+                      formik.touched.numberOfEmployees &&
+                      !!formik.errors.numberOfEmployees
                     }
-                    
                     error={
-                      formik.errors.numberOfEmployees && formik.touched.numberOfEmployees ? (
+                      formik.errors.numberOfEmployees &&
+                      formik.touched.numberOfEmployees ? (
                         <span className="error-message">
                           {formik.errors.numberOfEmployees}
                         </span>
@@ -185,7 +186,6 @@ const Register = () => {
                     name="password"
                     type="password"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.password}
                     isInvalid={
                       formik.touched.password && !!formik.errors.password
