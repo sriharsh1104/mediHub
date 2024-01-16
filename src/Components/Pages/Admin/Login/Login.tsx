@@ -15,6 +15,7 @@ import { setCompanyId, setJwtToken } from "../../../../Redux/Slices/user.slice";
 import { useDispatch } from "react-redux";
 import { LoginResponse } from "../../../../interface/ApiResponses/LoginResponse";
 import toaster from "../../../Common/Toast";
+import Password from "../../../Common/FormInputs/Password";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -107,7 +108,7 @@ const AdminLogin = () => {
                       ) : null
                     }
                   />
-                  <InputCustom
+                  <Password
                     label="Password"
                     placeholder="Password"
                     id="password"

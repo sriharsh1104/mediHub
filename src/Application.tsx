@@ -15,13 +15,12 @@ import OtpRegistration from "./Components/Pages/Admin/Login/OtpRegistration";
 import DashboardListing from "./Components/Pages/Admin/Dashboard/DashboardListing/DashboardListing";
 import Post from "./Components/Pages/Admin/Post/Post";
 import Message from "./Components/Pages/Admin/Message/Message";
-import Balance from "./Components/Pages/Admin/Balance/Balance";
 import Voting from "./Components/Pages/Admin/Voting/Voting";
 import Setting from "./Components/Pages/Admin/Setting/Setting";
+import EmployMange from "./Components/Pages/Admin/Balance/EmployeManger/EmployManger";
 
 const Application: React.FC = () => {
   const router = createBrowserRouter([
-
     {
       path: "/auth",
       element: <MainLayout />,
@@ -40,11 +39,6 @@ const Application: React.FC = () => {
       errorElement: <ErrorBoundary />,
     },
     {
-      path: "/otp",
-      element: <OtpRegistration />,
-      errorElement: <ErrorBoundary />,
-    },
-    {
       path: "/auth",
       element: <AuthLayout heading={undefined} />,
       errorElement: <ErrorBoundary />,
@@ -55,25 +49,25 @@ const Application: React.FC = () => {
           element: <Dashboard />,
         },
         {
-          path: "balance",
-          element: <Balance />,
+          path: "employmanage",
+          element: <EmployMange />,
         },
-        {
-          path: "voting",
-          element: <Voting />,
-        },
-        {
-          path: "dashboard-listing",
-          element: <DashboardListing />,
-        },
-        {
-          path: "post",
-          element: <Post />,
-        },
-        {
-          path: "message",
-          element: <Message />,
-        },
+        // {
+        //   path: "voting",
+        //   element: <Voting />,
+        // },
+        // {
+        //   path: "dashboard-listing",
+        //   element: <DashboardListing />,
+        // },
+        // {
+        //   path: "post",
+        //   element: <Post />,
+        // },
+        // {
+        //   path: "message",
+        //   element: <Message />,
+        // },
         {
           path: "setting",
           element: <Setting />,

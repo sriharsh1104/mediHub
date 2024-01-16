@@ -16,26 +16,26 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
     {
       icon: <DashboardIcon />,
       label: "Dashboard",
-      to: "/admin/dashboard",
+      to: "/auth/dashboard",
     },
     {
-      icon: <AuditIcon />,
+      // icon: <AuditIcon />,
       label: "Audit Request",
       to: "/admin/post",
     },
     {
-      icon: <BalanceIcon />,
+      // icon: <BalanceIcon />,
       label: "Balance",
-      to: "/admin/balance",
+      to: "/auth/employManage",
     },
 
     {
-      icon: <SettingsIcon />,
+      // icon: <SettingsIcon />,
       label: "Settings",
       to: "/admin/setting",
     },
     {
-      icon: <VotingIcon />,
+      // icon: <VotingIcon />,
       label: "Voting",
       to: "/admin/voting",
     },

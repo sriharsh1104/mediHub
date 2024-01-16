@@ -13,6 +13,13 @@ type propsType = {
   name?: string;
   placeholder?: any;
   id?: string;
+  value?: any;
+  closeMenuOnSelect?: any;
+  hideSelectedOptions?: any;
+  isMulti?: any;
+  onBlur?: any;
+  smallText?: any;
+  error?: any;
 };
 
 const CustomSelect = ({
@@ -22,13 +29,16 @@ const CustomSelect = ({
   onChange,
   options,
   name,
-  id,
   placeholder,
+  isMulti,
+  closeMenuOnSelect,
+  hideSelectedOptions,
+  onBlur,
+  error,
+
 }: propsType) => {
   return (
     <>
-      <Form>
-        <Form.Group className="checkbox_input" controlId={id}>
           <Select
             placeholder={placeholder}
             defaultValue={defaultValue}
@@ -39,9 +49,22 @@ const CustomSelect = ({
             menuIsOpen={menuIsOpen}
             name={name}
             isSearchable={false}
+            isMulti={isMulti}
+            closeMenuOnSelect={closeMenuOnSelect}
+            hideSelectedOptions={hideSelectedOptions}
+            onBlur={onBlur}
+            
           />
-        </Form.Group>
-      </Form>
+          {error ? (
+            <Form.Text
+              id=""
+              className="small-text-form"
+            >
+              {error}
+            </Form.Text>
+          ) : (
+            ""
+          )}
     </>
   );
 };

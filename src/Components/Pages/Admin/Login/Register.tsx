@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Dispatch} from "react";
+import { Dispatch } from "react";
 import ButtonCustom from "../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../Common/Inputs/InputCustom";
 import "./Login.scss";
@@ -13,25 +13,25 @@ import { userRegister } from "../../../../Redux/Actions/user.action";
 import { setCompanyId } from "../../../../Redux/Slices/user.slice";
 import { useDispatch } from "react-redux";
 import toaster from "../../../Common/Toast";
+import Password from "../../../Common/FormInputs/Password";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
-
 
   const loginSchema = Yup.object().shape({
     address: Yup.string().required("*This Field is required"),
   });
   const formik = useFormik({
     initialValues: {
-        email: "",
-        firstName: "",
-        lastName: "",
-        companyName: "",
-        numberOfEmployees: "",
-        password: "",
-        confirmPassword: "",
-      },
+      email: "",
+      firstName: "",
+      lastName: "",
+      companyName: "",
+      numberOfEmployees: "",
+      password: "",
+      confirmPassword: "",
+    },
     validationSchema: loginSchema,
     onSubmit: async (values) => {},
   });
@@ -45,7 +45,6 @@ const Register = () => {
         numberOfEmployees: formik.values.numberOfEmployees.trim(),
         password: formik.values.password.trim(),
         confirmPassword: formik.values.confirmPassword.trim(),
-
       });
       console.log("3213131", result);
 
@@ -69,23 +68,21 @@ const Register = () => {
           <Row className="align-items-center">
             <Col lg={6}>
               <div className="login_page_img">
-                <img src={oraora} height={550}  alt="login_bg" />
+                <img src={oraora} height={550} alt="login_bg" />
               </div>
             </Col>
             <Col lg={6}>
               <div className="login_page_box">
-                {/* <CommonHeading heading="Login" /> */}
                 <h4>Register</h4>
                 <p>Fill the below details to Login account</p>
                 <form onSubmit={formik.handleSubmit}>
                   <InputCustom
                     label="Email Address"
                     placeholder="EmailAddress"
-                    id="address"
-                    name="name"
+                    id="email"
+                    name="email"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
                     value={formik.values.email}
                     isInvalid={formik.touched.email && !!formik.errors.email}
                     error={
@@ -103,7 +100,6 @@ const Register = () => {
                     name="firstName"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
                     value={formik.values.firstName}
                     isInvalid={
                       formik.touched.firstName && !!formik.errors.firstName
@@ -123,7 +119,6 @@ const Register = () => {
                     name="lastName"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
                     value={formik.values.lastName}
                     isInvalid={
                       formik.touched.lastName && !!formik.errors.lastName
@@ -143,19 +138,25 @@ const Register = () => {
                     name="companyName"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.companyName}
                     isInvalid={
                       formik.touched.companyName && !!formik.errors.companyName
                     }
                     error={
-                      formik.errors.companyName && formik.touched.companyName ? (
+                      formik.errors.companyName &&
+                      formik.touched.companyName ? (
                         <span className="error-message">
                           {formik.errors.companyName}
                         </span>
                       ) : null
                     }
-                  />
+                  >
+                    <option value="" label="Select number of employees" />
+                    <option value="1-10" label="1-10 employees" />
+                    <option value="11-50" label="11-50 employees" />
+                    <option value="51-100" label="51-100 employees" />
+                  </InputCustom>
                   <InputCustom
                     label="NO. OF EMPLOYEES "
                     placeholder="Number Of Employees"
@@ -163,27 +164,27 @@ const Register = () => {
                     name="numberOfEmployees"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
                     value={formik.values.numberOfEmployees}
                     isInvalid={
-                      formik.touched.numberOfEmployees && !!formik.errors.numberOfEmployees
+                      formik.touched.numberOfEmployees &&
+                      !!formik.errors.numberOfEmployees
                     }
                     error={
-                      formik.errors.numberOfEmployees && formik.touched.numberOfEmployees ? (
+                      formik.errors.numberOfEmployees &&
+                      formik.touched.numberOfEmployees ? (
                         <span className="error-message">
                           {formik.errors.numberOfEmployees}
                         </span>
                       ) : null
                     }
                   />
-                  <InputCustom
+                  <Password
                     label="Password"
                     placeholder="Password"
                     id="address"
                     name="password"
                     type="password"
                     onChange={formik.handleChange}
-                    autoFocus={true}
                     value={formik.values.password}
                     isInvalid={
                       formik.touched.password && !!formik.errors.password
@@ -196,14 +197,14 @@ const Register = () => {
                       ) : null
                     }
                   />
-                  <InputCustom
+                  <Password
                     label="Confirm Password"
                     placeholder="confirm password"
                     id="confirmPassword"
                     name="confirmPassword"
                     type="password"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.confirmPassword}
                     isInvalid={
                       formik.touched.confirmPassword &&
