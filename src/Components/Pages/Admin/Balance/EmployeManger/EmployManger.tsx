@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Dispatch } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import ButtonCustom from "../../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../../Common/Inputs/InputCustom";
 import "../EmployeManger/Balance.scss";
@@ -10,10 +10,13 @@ import CommonHeader from "../../../../Common/CommonHeader/CommonHeader";
 import { addEmployInCompany } from "../../../../../Redux/Actions/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import { EmployManger } from "../../../../../interface/ApiResponses/EmployManger";
+import DatePickerCustom from "../../../../Common/DatePickerCustom/DatePickerCustom";
 
 const EmployMange = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
+  const [check, setCheck] = useState<any>({ state: false, value: "" });
+
   const organizationId = useSelector(
     (state: any) => state?.userDataSlice?.companyId
   );
@@ -69,6 +72,11 @@ const EmployMange = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (check.value) formik.initialValues.DateOfJoining = check?.value;
+  }, [check?.state]);
+
   return (
     <>
       <section className="login_page">
@@ -81,7 +89,7 @@ const EmployMange = () => {
                 <form onSubmit={formik.handleSubmit}>
                   <InputCustom
                     label="Full Name"
-                    placeholder=" Name"
+                    placeholder=" Full Name"
                     id="name"
                     name="name"
                     type="text"
@@ -140,7 +148,14 @@ const EmployMange = () => {
                     id="salary"
                     name="salary"
                     type="text"
-                    onChange={formik.handleChange}
+                    onChange={(e: any) => {
+                      e.preventDefault();
+                      const { value } = e.target;
+                      const regex = /^(\d+)?$/;
+                      if (regex.test(value.toString())) {
+                        formik.handleChange(e);
+                      }
+                    }}
                     value={formik.values.salary}
                     isInvalid={formik.touched.salary && !!formik.errors.salary}
                     error={
@@ -157,7 +172,14 @@ const EmployMange = () => {
                     id="empId"
                     name="empId"
                     type="text"
-                    onChange={formik.handleChange}
+                    onChange={(e: any) => {
+                      e.preventDefault();
+                      const { value } = e.target;
+                      const regex = /^(\d+)?$/;
+                      if (regex.test(value.toString())) {
+                        formik.handleChange(e);
+                      }
+                    }}
                     value={formik.values.empId}
                     isInvalid={formik.touched.empId && !!formik.errors.empId}
                     error={
@@ -168,13 +190,25 @@ const EmployMange = () => {
                       ) : null
                     }
                   />
-                  <InputCustom
-                    label="Password"
-                    placeholder="Password"
-                    id="address"
-                    name="password"
-                    type="password"
+                  <DatePickerCustom
+                    type="date"
+                    label={
+                      <>
+                        Date Of Joining<sup>*</sup>
+                      </>
+                    }
+                    InputName="DateOfJoining"
+                    id="DateOfJoining"
+                    Dateclass="post_inputNew"
+                    placeholder="Date Of Joining"
+                    onClick={formik.handleBlur}
                     onChange={formik.handleChange}
+                    data={formik.values}
+                    dateType="estimatedDelivery"
+                    checkSetter={setCheck}
+                    check={check}
+                    dateFormat="dd/MM/yyyy"
+                    onBlur={formik.handleBlur}
                     value={formik.values.DateOfJoining}
                     isInvalid={
                       formik.touched.DateOfJoining &&
@@ -189,13 +223,6 @@ const EmployMange = () => {
                       ) : null
                     }
                   />
-                  <Form.Group className="mt-4">
-                    <Form.Check
-                      className="form-check"
-                      type="checkbox"
-                      label="By clicking  on register button you agree to our term & condition and Privacy Policy"
-                    />
-                  </Form.Group>
                   <div className="login_page_box_btn mt-4">
                     <ButtonCustom
                       type="button"
