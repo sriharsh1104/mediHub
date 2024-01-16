@@ -32,7 +32,7 @@ body,
 .row {
   margin: 0 -15px;
 
-  >div {
+  > div {
     // padding: 0 15px;
   }
 }
@@ -98,6 +98,7 @@ h4,
 h5,
 h6,
 p {
+  color: "white";
   margin-bottom: 0;
 }
 
@@ -107,7 +108,6 @@ h3,
 h4 {
   // font-family: $baseFont2;
   font-weight: 400;
-
 
   span {
     color: transparent;
@@ -228,13 +228,11 @@ small,
 
   @media (max-width: 1199px) {
     max-width: 960px;
-
   }
 
   // @media (max-width: 991px) {
   //   max-width: 720px;
   // }
-
 }
 
 .inner-page {
@@ -259,7 +257,7 @@ div:where(.swal2-container) div:where(.swal2-popup) {
   color: $white;
   font-family: inherit;
   font-size: 1rem;
-  background: #0D171B !important;
+  background: #0d171b !important;
   border: 1px solid #22353d;
   -webkit-backdrop-filter: blur(3.7rem);
   backdrop-filter: blur(3.7rem);

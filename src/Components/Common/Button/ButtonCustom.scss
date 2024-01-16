@@ -30,7 +30,8 @@
 
   &:hover {
     color: $orangeclr;
-    background-color: transparent;
+    background-color: linear-gradient(226.41deg, #4169ef 0%, #2a1d89 74.39%);
+    border: #4169ef;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 
@@ -45,8 +46,8 @@
     color: $gray4;
 
     &:hover {
-      background-color: $white;
-      color: $orangeclr;
+      background-color: linear-gradient(226.41deg, #4169ef 0%, #2a1d89 74.39%);
+      color: #2a1d89;
     }
   }
 

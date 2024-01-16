@@ -16,13 +16,13 @@ const InputCustom = (props) => {
     /** RESTRICT USER TO ENTER MORE THEN MAX LENGTH IN INPUT TYPE NUBER */
     return props.type === "number"
       ? (disabledCharacters.includes(e.key) ||
-        (e.key !== "Backspace" &&
-          props.maxlength &&
-          e.target.value.length === props.maxlength)) &&
-      e.preventDefault()
+          (e.key !== "Backspace" &&
+            props.maxlength &&
+            e.target.value.length === props.maxlength)) &&
+          e.preventDefault()
       : props.onlyChar
-        ? !allowOnlyString(e.key) && e.preventDefault()
-        : null;
+      ? !allowOnlyString(e.key) && e.preventDefault()
+      : null;
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -41,7 +41,9 @@ const InputCustom = (props) => {
         <div className="customInput_inner">
           {props.leftIcon && (
             <span
-              className={`${props.leftIconClick ? "cursor-pointer" : ""} leftIcon`}
+              className={`${
+                props.leftIconClick ? "cursor-pointer" : ""
+              } leftIcon`}
               onClick={props.leftIconClick}
             >
               {props.leftIcon}
@@ -49,7 +51,11 @@ const InputCustom = (props) => {
           )}
           <Form.Control
             disabled={props.disabled}
-            type={props.type === 'password' && !showPassword ? 'password' : 'text' || props.type}
+            type={
+              props.type === "password" && !showPassword
+                ? "password"
+                : "text" || props.type
+            }
             id={props.id}
             name={props.name}
             value={props.value}
@@ -78,8 +84,9 @@ const InputCustom = (props) => {
           {props.children}
           {props.rightIcon && (
             <span
-              className={`${props.rightIconClick ? "cursor-pointer" : ""
-                } rightIcon ${props.iconClr}`}
+              className={`${
+                props.rightIconClick ? "cursor-pointer" : ""
+              } rightIcon ${props.iconClr}`}
               onClick={props.rightIconClick}
             >
               {props.rightIcon}

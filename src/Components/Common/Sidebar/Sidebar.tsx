@@ -8,7 +8,7 @@ import {
   BalanceIcon,
   VotingIcon,
 } from "../../../Assets/Images/Icons/SvgIcons";
-import logo from "../../../Assets/Images/logo.svg";
+import logo from "../../../Assets/Images/oraora.png";
 import "./Sidebar.scss";
 
 const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
@@ -46,7 +46,7 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
       <ul className="sidebar_inner">
         <div className="sidebar_inner_header">
           <Link to="/admin/dashboard">
-            <img src={logo} alt="logo" />
+            <img src={logo} height={777} width={988} alt="logo" />
           </Link>
         </div>
         {NavLinks.map((item) => (
