@@ -1,6 +1,3 @@
-import Swal from "sweetalert2";
-import Web3 from "web3";
-import toaster from "../../Components/Common/Toast";
 import { apiCallPost } from "../../Services/axios.service";
 import { APIURL } from "../../Constant";
 

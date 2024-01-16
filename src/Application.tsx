@@ -21,7 +21,6 @@ import EmployMange from "./Components/Pages/Admin/Balance/EmployeManger/EmployMa
 
 const Application: React.FC = () => {
   const router = createBrowserRouter([
-
     {
       path: "/auth",
       element: <MainLayout />,
@@ -40,11 +39,6 @@ const Application: React.FC = () => {
       errorElement: <ErrorBoundary />,
     },
     {
-      path: "/otp",
-      element: <OtpRegistration />,
-      errorElement: <ErrorBoundary />,
-    },
-    {
       path: "/auth",
       element: <AuthLayout heading={undefined} />,
       errorElement: <ErrorBoundary />,
@@ -58,22 +52,22 @@ const Application: React.FC = () => {
           path: "employmanage",
           element: <EmployMange />,
         },
-        {
-          path: "voting",
-          element: <Voting />,
-        },
-        {
-          path: "dashboard-listing",
-          element: <DashboardListing />,
-        },
-        {
-          path: "post",
-          element: <Post />,
-        },
-        {
-          path: "message",
-          element: <Message />,
-        },
+        // {
+        //   path: "voting",
+        //   element: <Voting />,
+        // },
+        // {
+        //   path: "dashboard-listing",
+        //   element: <DashboardListing />,
+        // },
+        // {
+        //   path: "post",
+        //   element: <Post />,
+        // },
+        // {
+        //   path: "message",
+        //   element: <Message />,
+        // },
         {
           path: "setting",
           element: <Setting />,

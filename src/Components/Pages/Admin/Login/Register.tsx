@@ -73,7 +73,6 @@ const Register = () => {
             </Col>
             <Col lg={6}>
               <div className="login_page_box">
-                {/* <CommonHeading heading="Login" /> */}
                 <h4>Register</h4>
                 <p>Fill the below details to Login account</p>
                 <form onSubmit={formik.handleSubmit}>
