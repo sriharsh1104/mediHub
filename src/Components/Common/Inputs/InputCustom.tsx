@@ -5,7 +5,7 @@ import { useState } from "react";
 import { CloseEye, EyeIcon } from "../../../Assets/Images/Icons/SvgIcons";
 
 /** CUSTOM COMMON INPUT FIELD WITH DYNAMIC PROPS */
-const InputCustom = (props) => {
+const InputCustom = (props:any) => {
   /** RESTRICT USER TO ENTER e, E, +, -, . IN INPUT TYPE NUBER */
   const disabledCharacters = ["e", "E", "+", "-"];
   const onKeyDown = (e) => {

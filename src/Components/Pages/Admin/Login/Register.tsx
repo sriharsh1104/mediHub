@@ -13,6 +13,7 @@ import { userRegister } from "../../../../Redux/Actions/user.action";
 import { setCompanyId } from "../../../../Redux/Slices/user.slice";
 import { useDispatch } from "react-redux";
 import toaster from "../../../Common/Toast";
+import Password from "../../../Common/FormInputs/Password";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -81,11 +82,11 @@ const Register = () => {
                   <InputCustom
                     label="Email Address"
                     placeholder="EmailAddress"
-                    id="address"
-                    name="name"
+                    id="email"
+                    name="email"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.email}
                     isInvalid={formik.touched.email && !!formik.errors.email}
                     error={
@@ -103,7 +104,7 @@ const Register = () => {
                     name="firstName"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.firstName}
                     isInvalid={
                       formik.touched.firstName && !!formik.errors.firstName
@@ -123,7 +124,7 @@ const Register = () => {
                     name="lastName"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.lastName}
                     isInvalid={
                       formik.touched.lastName && !!formik.errors.lastName
@@ -143,7 +144,7 @@ const Register = () => {
                     name="companyName"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.companyName}
                     isInvalid={
                       formik.touched.companyName && !!formik.errors.companyName
@@ -163,11 +164,12 @@ const Register = () => {
                     name="numberOfEmployees"
                     type="text"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.numberOfEmployees}
                     isInvalid={
                       formik.touched.numberOfEmployees && !!formik.errors.numberOfEmployees
                     }
+                    
                     error={
                       formik.errors.numberOfEmployees && formik.touched.numberOfEmployees ? (
                         <span className="error-message">
@@ -176,14 +178,14 @@ const Register = () => {
                       ) : null
                     }
                   />
-                  <InputCustom
+                  <Password
                     label="Password"
                     placeholder="Password"
                     id="address"
                     name="password"
                     type="password"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.password}
                     isInvalid={
                       formik.touched.password && !!formik.errors.password
@@ -196,14 +198,14 @@ const Register = () => {
                       ) : null
                     }
                   />
-                  <InputCustom
+                  <Password
                     label="Confirm Password"
                     placeholder="confirm password"
                     id="confirmPassword"
                     name="confirmPassword"
                     type="password"
                     onChange={formik.handleChange}
-                    autoFocus={true}
+                    // autoFocus={true}
                     value={formik.values.confirmPassword}
                     isInvalid={
                       formik.touched.confirmPassword &&
