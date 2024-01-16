@@ -1,0 +1,69 @@
+@import "../../../../Assets/theme/_var.scss";
+
+.voting_sec {
+    // padding-top: 10rem;
+
+    .nav-tabs {
+        border-bottom: none;
+        margin-bottom: 3rem;
+
+        .nav-item {
+
+            margin-right: 1rem;
+
+            button {
+                margin: 0;
+                border: none;
+            }
+
+            .nav-link {
+                display: inline-block;
+                color: $gray6;
+                border-radius: 5rem;
+                border: 1px solid $gray6;
+                max-width: 15.8rem;
+                width: 100%;
+                font-size: 1.6rem;
+                padding: 2rem 4rem;
+                line-height: 0.5;
+
+                &:hover,
+                &.active {
+                    color: $white;
+                    background: linear-gradient(90deg, #FF992E 0%, #F88038 22.00%, #E74352 67.00%, #DA1467 100%);
+
+                }
+
+                &:focus-visible {
+                    box-shadow: unset;
+                }
+            }
+        }
+    }
+
+    .text_green {
+        color: $green;
+    }
+
+    .text_red {
+        color: $red;
+    }
+
+    .progress_btn {
+        display: flex;
+
+        .view_btn {
+            background: linear-gradient(white, white) padding-box, linear-gradient(90deg, #FF992E 0%, #F88038 22.00%, #E74352 67.00%, #DA1467 100%);
+            border-radius: 50em;
+            border: 1px solid transparent;
+            min-width: 8.6rem;
+            height: 3.4rem;
+            margin-right: 1rem;
+        }
+
+        .vote_btn {
+            min-width: 8.6rem;
+            height: 3.4rem;
+        }
+    }
+}

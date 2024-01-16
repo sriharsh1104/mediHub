@@ -1,0 +1,159 @@
+@import "../../../Assets/theme/_var.scss";
+
+.auth_layout {
+  background-color: $baseColor;
+
+  &_inner {
+    padding: 10.5rem 2rem 2rem 32rem;
+    min-height: 100vh;
+    background: $offwhite;
+
+    @media (max-width: 991px) {
+      padding: 10.4rem 1.5rem 1.5rem;
+    }
+
+
+
+    &_user {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+
+      span {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+      }
+    }
+
+    &_header {
+      background-color: $white;
+      position: fixed;
+      margin-left: 28rem;
+      top: 0;
+      padding: 1.5rem 2rem;
+      z-index: 2;
+      right: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $borderclr;
+
+      @media (max-width: 991px) {
+        margin-left: 0;
+        padding: 1.5rem;
+      }
+
+      .toggle_btn {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        margin-left: 1rem;
+        position: relative;
+        z-index: 1001;
+
+        span {
+          width: 3.2rem;
+          height: 0.3rem;
+          border-radius: 1rem;
+          margin-bottom: 0.8rem;
+          transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+          transform-origin: left;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          background-color: $orangeclr;
+
+          @media (max-width: 767px) {
+            width: 2.3rem;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        &.active {
+          span {
+            &:first-child {
+              transform: rotate(45deg);
+            }
+
+            &:nth-child(2) {
+              opacity: 0;
+            }
+
+            &:last-child {
+              transform: rotate(-45deg);
+            }
+          }
+        }
+      }
+
+      &_logo {
+        flex-shrink: 0;
+
+        .mob_log {
+          display: none;
+
+          @media(max-width: 479px) {
+            display: block;
+            width: 20px;
+          }
+        }
+
+        .desk_log {
+
+          @media(max-width: 479px) {
+            display: none;
+          }
+        }
+
+        @media (max-width: 767px) {
+          max-width: 17.5rem;
+        }
+      }
+    }
+
+    .connectwallet_btn {
+      margin-left: auto;
+      padding: 0.8rem 0.9rem 0.8rem 0.6rem;
+      justify-content: flex-start;
+
+      @media(max-width: 767px) {
+        background: none;
+        border-radius: 50%;
+        min-width: 3rem;
+        // height: 0;
+        padding: 0;
+      }
+
+      p {
+        font-weight: 700;
+
+        @media(max-width: 767px) {
+          display: none;
+        }
+      }
+
+      span {
+
+        @media(max-width: 767px) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+
+  @media (max-width: 991px) {
+    &.expanded_sidebar {
+      .sidebar {
+        transform: translateX(0);
+      }
+    }
+  }
+}
