@@ -46,10 +46,11 @@ const AdminLogin = () => {
         emailAddress: formik.values.email.trim(),
         password: formik.values.password.trim(),
       });
-
+      console.log("result", result);
       if (result?.status === 200) {
         dispatch(setCompanyData(result?.data));
-        const decodedToken = jwt.decode(result?.data?.accessToken);
+
+        const decodedToken = jwt.decode(result?.accessToken);
         if (
           decodedToken &&
           typeof decodedToken === "object" &&

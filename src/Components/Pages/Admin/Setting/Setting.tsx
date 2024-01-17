@@ -23,7 +23,7 @@ const Setting = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
 
-  const userData: any = useSelector((state: any) => state?.user?.companyData?.details);
+  const userData: any = useSelector((state: any) => state?.user?.companyData);
   console.log('firs21131t', userData)
 
   const settingSchema = Yup.object().shape({
@@ -46,9 +46,9 @@ const Setting = () => {
     address: Yup.string().min(2, "Too Short!").max(25, "Too Long!"),
 
     bio: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
-    Contact_Number: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
-    Country: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
-    Pincode: Yup.number().max(2000, "Maximum 2000 Characters Allowed."),
+    contact_Number: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
+    country: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
+    pincode: Yup.number().max(2000, "Maximum 2000 Characters Allowed."),
     companyid: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
 
   });
@@ -61,9 +61,9 @@ const Setting = () => {
       instagram: userData?.instagram,
       address: userData?.address,
       bio: userData?.bio,
-      Contact_Number: userData?.Contact_Number,
-      Country: userData?.country,
-      Pincode: userData?.Pincode,
+      contact_Number: userData?.phoneNo,
+      country: userData?.country,
+      pincode: userData?.pincode,
       companyId:userData?.companyId,
     },
     validationSchema: settingSchema,
@@ -81,15 +81,15 @@ const Setting = () => {
         instagram: formik.values.instagram.trim(),
         address: formik.values.address.trim(),
         bio: formik.values.bio.trim(),
-        Contact_Number: formik.values.Contact_Number,
-        Country: formik.values.Country.trim(),
-        Pincode: formik.values.Pincode,
+        contact_Number: formik.values.contact_Number,
+        country: formik.values.country.trim(),
+        pincode: formik.values.pincode,
         companyId:userData?.companyId
       });
       console.log("3213131", result);
 
       if (result?.status === 200) {
-        // dispatch(setCompanyData(result?.data));
+        dispatch(setCompanyData(result?.data)); 
 
       } else {
         toaster.info("Registration Failed");
@@ -142,24 +142,24 @@ const Setting = () => {
 
               <Col md={6} xl={4}>
                 <InputCustom
-                  label="Contact_Number"
+                  label="Contact Number"
                   placeholder="Enter your Contact_Number"
-                  id="Contact_Number"
-                  name="Contact_Number"
+                  id="contact_Number"
+                  name="contact_Number"
                   type="text"
                   onChange={formik.handleChange}
                   defaultValue={userData?.contact_Number || ""}
-                  value={formik.values.Contact_Number}
+                  value={formik.values.contact_Number}
                   onBlur={formik.handleBlur}
                   isInvalid={
-                    formik.touched.Contact_Number &&
-                    formik.errors.Contact_Number
+                    formik.touched.contact_Number &&
+                    formik.errors.contact_Number
                       ? "is-invalid"
                       : ""
                   }
                   error={
-                    formik.errors.Contact_Number ||
-                    formik.touched.Contact_Number ? (
+                    formik.errors.contact_Number ||
+                    formik.touched.contact_Number ? (
                       <span className="error-message">
                         {/* {formik.errors.linkedIn} */}
                       </span>
@@ -172,20 +172,20 @@ const Setting = () => {
                 <InputCustom
                   label="Country "
                   placeholder="Select Your Country"
-                  id="Country"
-                  name="Country"
+                  id="country"
+                  name="country"
                   type="text"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   defaultValue={userData?.country || ""}
-                  value={formik.values.Country}
+                  value={formik.values.country}
                   isInvalid={
-                    formik.touched.Country && formik.errors.Country
+                    formik.touched.country && formik.errors.country
                       ? "is-invalid"
                       : ""
                   }
                   error={
-                    formik.errors.Country && formik.touched.Country ? (
+                    formik.errors.country && formik.touched.country ? (
                       <span className="error-message"></span>
                     ) : null
                   }
@@ -194,20 +194,20 @@ const Setting = () => {
               <Col md={6} xl={4}>
                 <InputCustom
                   label="Pincode "
-                  placeholder="Select Your Pincode"
-                  id="Pincode"
-                  name="Pincode"
+                  placeholder="Enter Your Pincode"
+                  id="pincode"
+                  name="pincode"
                   type="text"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.Pincode}
+                  value={formik.values.pincode}
                   isInvalid={
-                    formik.touched.Pincode && formik.errors.Pincode
+                    formik.touched.pincode && formik.errors.pincode
                       ? "is-invalid"
                       : ""
                   }
                   error={
-                    formik.errors.Pincode && formik.touched.Pincode ? (
+                    formik.errors.pincode && formik.touched.pincode ? (
                       <span className="error-message"></span>
                     ) : null
                   }

@@ -103,7 +103,7 @@ export const getAllEmployeesForAdmin = async (data: any) => {
   }
 };
 export const updateSettingForAdmin = async (data: any) => {
-  const { gitHub,linkedIn,telegram,instagram,address,bio,Contact_Number,Country,Pincode ,companyId} = data;
+  const { gitHub,linkedIn,telegram,instagram,address,bio,Contact_Number,country,pincode ,companyId} = data;
   try {
     let result: any = await apiCallPost(
       APIURL["UPDATE_ADMIN"],
@@ -116,8 +116,8 @@ export const updateSettingForAdmin = async (data: any) => {
         address:address,
         bio:bio,
         phoneNo:Contact_Number,
-        country:Country,
-        pincode:Pincode
+        country:country,
+        pincode:pincode
 
       },
       {},

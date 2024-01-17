@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const organizationId = useSelector(
-    (state: any) => state?.user?.companyData?.details?.companyId
+    (state: any) => state?.user?.companyData?.companyId
   );
   console.log('organizationId', organizationId)
 
@@ -33,7 +33,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, [organizationId]);
+  }, []);
 
   return (
     <section className="user_details">
