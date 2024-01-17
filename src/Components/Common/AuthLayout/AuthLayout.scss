@@ -6,13 +6,11 @@
   &_inner {
     padding: 10.5rem 2rem 2rem 32rem;
     min-height: 100vh;
-    background: $offwhite;
+    background: #131027;
 
     @media (max-width: 991px) {
       padding: 10.4rem 1.5rem 1.5rem;
     }
-
-
 
     &_user {
       display: flex;
@@ -27,7 +25,7 @@
     }
 
     &_header {
-      background-color: $white;
+      background-color: #131027;
       position: fixed;
       margin-left: 28rem;
       top: 0;
@@ -99,15 +97,14 @@
         .mob_log {
           display: none;
 
-          @media(max-width: 479px) {
+          @media (max-width: 479px) {
             display: block;
             width: 20px;
           }
         }
 
         .desk_log {
-
-          @media(max-width: 479px) {
+          @media (max-width: 479px) {
             display: none;
           }
         }
@@ -123,7 +120,7 @@
       padding: 0.8rem 0.9rem 0.8rem 0.6rem;
       justify-content: flex-start;
 
-      @media(max-width: 767px) {
+      @media (max-width: 767px) {
         background: none;
         border-radius: 50%;
         min-width: 3rem;
@@ -134,20 +131,18 @@
       p {
         font-weight: 700;
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
           display: none;
         }
       }
 
       span {
-
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
           margin-right: 0;
         }
       }
     }
   }
-
 
   @media (max-width: 991px) {
     &.expanded_sidebar {

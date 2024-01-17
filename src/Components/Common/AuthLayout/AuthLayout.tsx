@@ -8,10 +8,10 @@ import Sidebar from "../Sidebar/Sidebar";
 import sm_logo from "../../../Assets/Images/logo.svg";
 import mob_logo from "../../../Assets/Images/Icons/mob_logo.png";
 import ButtonCustom from "../Button/ButtonCustom";
-import wallet from "../../../Assets/Images/wallet.svg"
+import wallet from "../../../Assets/Images/wallet.svg";
 import "./AuthLayout.scss";
 import Select from "../Select/Select";
-import user from "../../../Assets/Images/user_img.png"
+import user from "../../../Assets/Images/user_img.png";
 
 const AuthLayout = ({ heading }) => {
   const dispatch = useDispatch();
@@ -34,11 +34,10 @@ const AuthLayout = ({ heading }) => {
   // ]
 
   const options = [
-    { value: 'My Profile', label: 'My Profile' },
-    { value: 'Logout', label: 'Logout' },
-  ]
+    { value: "My Profile", label: "My Profile" },
+    { value: "Logout", label: "Logout" },
+  ];
   // const defaultValue = {<> <p>Marshal Mathers</p></>}
-
 
   return (
     <IdleTimerProvider timeout={1000 * 60 * 15} crossTab={true} onIdle={onIdle}>
@@ -49,19 +48,27 @@ const AuthLayout = ({ heading }) => {
             {active && (
               <div
                 onClick={handleSidebar}
-                className={`${active ? "active" : ""
-                  } sidebar_backdrop d-lg-none`}
+                className={`${
+                  active ? "active" : ""
+                } sidebar_backdrop d-lg-none`}
               />
             )}
 
-            <div className="auth_layout_inner_header_logo d-lg-none">
-              <img src={sm_logo} alt="logo" className="desk_log" />
-              <img src={mob_logo} alt="mob_logo" className="mob_log" />
-            </div>
-            <h2>{heading}</h2>
+            {/* <div className="auth_layout_inner_header_logo d-lg-none"> */}
+            {/* <img src={sm_logo} alt="logo" className="desk_log" /> */}
+            {/* <img src={mob_logo} alt="mob_logo" className="mob_log" /> */}
+            {/* </div> */}
+            <h2>ORA ORA</h2>
             <div className="auth_layout_inner_user">
-              <span><img src={user} alt="user_img" /></span>
-              <Select options={options} defaultValue={{ value: 'Marshal Mathers', label: 'Marshal Mathers' }}
+              <span>
+                <img src={user} alt="user_img" />
+              </span>
+              <Select
+                options={options}
+                defaultValue={{
+                  value: "Marshal Mathers",
+                  label: "Marshal Mathers",
+                }}
               />
             </div>
             <button
