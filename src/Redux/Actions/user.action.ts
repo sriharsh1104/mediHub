@@ -88,7 +88,7 @@ export const getAllEmployeesForAdmin = async (data: any) => {
     let result: any = await apiCallPost(
       APIURL["ALL_EMPLOYEES"],
       {
-        companyId: companyId,
+        companyId: "65a4cbd7eaeb5de07b36ae15",
       },
       {},
       true,
