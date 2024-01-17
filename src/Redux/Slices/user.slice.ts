@@ -8,6 +8,16 @@ const initialState: UserData = {
   emailAddress: "",
   companyId:"",
   jwtToken:"",
+  gitHub:"",
+  linkedIn:"",
+  telegram:"",
+  instagram:"",
+  address:"",
+  bio:"",
+  contact_Number:0,
+  country:"",
+  pincode:0,
+
 };
 
 // UserData SLICE
@@ -21,6 +31,16 @@ export const userDataSlice = createSlice({
       state.emailAddress = "";
       state.companyId ="";
       state.jwtToken="";
+      state.gitHub="";
+      state.linkedIn="";
+      state.telegram="";
+      state.instagram="";
+      state.address="";
+      state.bio="";
+      state.contact_Number=0;
+      state.country="";
+      state.pincode=0;
+
       
     },
     setFirstName: (state, action) => {
@@ -38,7 +58,33 @@ export const userDataSlice = createSlice({
     setJwtToken: (state, action) => {
       state.jwtToken = action.payload;
     },
-
+    setGitHub: (state, action) => {
+      state.gitHub = action.payload;
+    },
+    setLinkedIn: (state, action) => {
+      state.linkedIn = action.payload;
+    },
+    setTelegram: (state, action) => {
+      state.telegram = action.payload;
+    },
+    setInstagram: (state, action) => {
+      state.instagram = action.payload;
+    },
+    setAddress: (state, action) => {
+      state.address = action.payload;
+    },
+    setBio: (state, action) => {
+      state.bio = action.payload;
+    },
+    setContact_Number: (state, action) => {
+      state.contact_Number = action.payload;
+    },
+    setCountry: (state, action) => {
+      state.country = action.payload;
+    },
+    setPincode: (state, action) => {
+      state.pincode = action.payload;
+    },
   },
 });
 
@@ -49,6 +95,15 @@ export const {
   setEmailAddress,
   setCompanyId,
   setJwtToken,
+  setGitHub,
+  setLinkedIn,
+  setTelegram,
+  setInstagram,
+  setAddress,
+  setBio,
+  setContact_Number,
+  setCountry,
+  setPincode
 
 } = userDataSlice.actions;
 export default userDataSlice.reducer;

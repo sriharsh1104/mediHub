@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const organizationId = useSelector(
-    (state: any) => state.userDataSlice?.companyId
+    (state: any) => state?.user?.companyId
   );
+  console.log('organizationId', organizationId)
 
   const [employeeData, setEmployeeData] = useState<any>(null);
 
@@ -22,7 +23,7 @@ const Dashboard = () => {
         });
 
         if (result?.status === 200) {
-          setEmployeeData(result?.data?.employeeDetails);
+          setEmployeeData(result?.data);
         } else {
           console.error("Failed to fetch data");
         }

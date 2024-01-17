@@ -12,6 +12,7 @@ export interface RegisterResponse {
       companyName:string;
       organizationName:string;
       companyId:string;
+      details:any
     };
   }
   

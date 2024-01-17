@@ -49,7 +49,7 @@ const Register = () => {
       console.log("3213131", result);
 
       if (result?.status === 200) {
-        dispatch(setCompanyId(result?.data?.companyId));
+        dispatch(setCompanyId(result?.data?.details?.companyId));
 
         navigate("/");
       } else {

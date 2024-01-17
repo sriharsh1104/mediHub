@@ -9,6 +9,7 @@ export interface LoginResponse {
       emailAddress: string;
       accessToken:string;
       companyId: string;
+      details:any;
     };
   }
   

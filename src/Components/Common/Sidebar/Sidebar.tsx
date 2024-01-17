@@ -18,11 +18,11 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
       label: "Dashboard",
       to: "/auth/dashboard",
     },
-    {
-      // icon: <AuditIcon />,
-      label: "Audit Request",
-      to: "/auth/post",
-    },
+    // {
+    //   // icon: <AuditIcon />,
+    //   label: "Audit Request",
+    //   to: "/auth/post",
+    // },
     {
       // icon: <BalanceIcon />,
       label: "Employ Manager",

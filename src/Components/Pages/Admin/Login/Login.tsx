@@ -48,7 +48,7 @@ const AdminLogin = () => {
       });
 
       if (result?.status === 200) {
-        dispatch(setCompanyId(result?.data?.companyId));
+        dispatch(setCompanyId(result?.data?.details?.companyId));
         dispatch(setJwtToken(result?.data?.accessToken));
         const decodedToken = jwt.decode(result?.data?.accessToken);
         if (
