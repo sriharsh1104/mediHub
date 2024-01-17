@@ -21,23 +21,23 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
     {
       // icon: <AuditIcon />,
       label: "Audit Request",
-      to: "/admin/post",
+      to: "/auth/post",
     },
     {
       // icon: <BalanceIcon />,
-      label: "Balance",
-      to: "/auth/employManage",
+      label: "employManager",
+      to: "/auth/employManager",
     },
 
     {
-      // icon: <SettingsIcon />,
+      icon: <SettingsIcon />,
       label: "Settings",
-      to: "/admin/setting",
+      to: "/auth/setting",
     },
     {
       // icon: <VotingIcon />,
-      label: "Voting",
-      to: "/admin/voting",
+      label: "Profile",
+      to: "/auth/profile",
     },
   ];
 

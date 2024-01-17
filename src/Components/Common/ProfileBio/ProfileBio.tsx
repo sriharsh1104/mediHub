@@ -1,4 +1,3 @@
-import React from 'react'
 import './ProfileBio.scss'
 import list_img from '../../../Assets/Images/profile-img.svg'
 import pointImg from '../../../Assets/Images/point-img.jpg'
@@ -54,7 +53,7 @@ const ProfileBio = () => {
                 <h6>Social Accounts</h6>
                 <div className='profileBio_link_info'>
                     <div className='profileBio_link_info_social'>
-                        {socialdata.map((item) => {
+                        {socialdata?.map((item) => {
                             return (
                                 <div className='social_account'>
                                     <div className='social_img'>

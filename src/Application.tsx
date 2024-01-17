@@ -18,6 +18,7 @@ import Message from "./Components/Pages/Admin/Message/Message";
 import Voting from "./Components/Pages/Admin/Voting/Voting";
 import Setting from "./Components/Pages/Admin/Setting/Setting";
 import EmployMange from "./Components/Pages/Admin/Balance/EmployeManger/EmployManger";
+import ProfileBio from "./Components/Common/ProfileBio/ProfileBio";
 
 const Application: React.FC = () => {
   const router = createBrowserRouter([
@@ -49,17 +50,17 @@ const Application: React.FC = () => {
           element: <Dashboard />,
         },
         {
-          path: "employmanage",
+          path: "employManager",
           element: <EmployMange />,
         },
-        // {
-        //   path: "voting",
-        //   element: <Voting />,
-        // },
-        // {
-        //   path: "dashboard-listing",
-        //   element: <DashboardListing />,
-        // },
+        {
+          path: "setting",
+          element: <Setting />,
+        },
+        {
+          path: "profile",
+          element: <ProfileBio />,
+        },
         // {
         //   path: "post",
         //   element: <Post />,

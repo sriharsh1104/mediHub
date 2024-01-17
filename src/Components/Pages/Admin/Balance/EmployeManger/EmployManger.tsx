@@ -190,21 +190,23 @@ const EmployMange = () => {
                       ) : null
                     }
                   />
+                 <Col sm={6}>
+                <div className="post_date">
                   <DatePickerCustom
                     type="date"
                     label={
                       <>
-                        Date Of Joining<sup>*</sup>
+                        Expected Timeline<sup>*</sup>
                       </>
                     }
                     InputName="DateOfJoining"
                     id="DateOfJoining"
                     Dateclass="post_inputNew"
-                    placeholder="Date Of Joining"
+                    placeholder="Enter Estimated Delivery"
                     onClick={formik.handleBlur}
                     onChange={formik.handleChange}
                     data={formik.values}
-                    dateType="estimatedDelivery"
+                    dateType="DateOfJoining"
                     checkSetter={setCheck}
                     check={check}
                     dateFormat="dd/MM/yyyy"
@@ -222,7 +224,10 @@ const EmployMange = () => {
                         </span>
                       ) : null
                     }
-                  />
+                  ></DatePickerCustom>
+                </div>
+              </Col>
+
                   <div className="login_page_box_btn mt-4">
                     <ButtonCustom
                       type="button"
