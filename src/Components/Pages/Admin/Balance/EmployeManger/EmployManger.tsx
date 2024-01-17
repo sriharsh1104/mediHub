@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch } from "react";
 import ButtonCustom from "../../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../../Common/Inputs/InputCustom";
 import "../EmployeManger/Balance.scss";
@@ -10,13 +10,10 @@ import CommonHeader from "../../../../Common/CommonHeader/CommonHeader";
 import { addEmployInCompany } from "../../../../../Redux/Actions/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import { EmployManger } from "../../../../../interface/ApiResponses/EmployManger";
-import DatePickerCustom from "../../../../Common/DatePickerCustom/DatePickerCustom";
 
 const EmployMange = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
-  const [check, setCheck] = useState<any>({ state: false, value: "" });
-
   const organizationId = useSelector(
     (state: any) => state?.userDataSlice?.companyId
   );
@@ -72,11 +69,6 @@ const EmployMange = () => {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (check.value) formik.initialValues.DateOfJoining = check?.value;
-  }, [check?.state]);
-
   return (
     <>
       <section className="login_page">
@@ -190,27 +182,13 @@ const EmployMange = () => {
                       ) : null
                     }
                   />
-                 <Col sm={6}>
-                <div className="post_date">
-                  <DatePickerCustom
-                    type="date"
-                    label={
-                      <>
-                        Expected Timeline<sup>*</sup>
-                      </>
-                    }
-                    InputName="DateOfJoining"
-                    id="DateOfJoining"
-                    Dateclass="post_inputNew"
-                    placeholder="Enter Estimated Delivery"
-                    onClick={formik.handleBlur}
+                  <InputCustom
+                    label="Date Of Joining"
+                    placeholder="Date Of Joining"
+                    id="address"
+                    name="DateOfJoining"
+                    type="DateOfJoining"
                     onChange={formik.handleChange}
-                    data={formik.values}
-                    dateType="DateOfJoining"
-                    checkSetter={setCheck}
-                    check={check}
-                    dateFormat="dd/MM/yyyy"
-                    onBlur={formik.handleBlur}
                     value={formik.values.DateOfJoining}
                     isInvalid={
                       formik.touched.DateOfJoining &&
@@ -224,10 +202,7 @@ const EmployMange = () => {
                         </span>
                       ) : null
                     }
-                  ></DatePickerCustom>
-                </div>
-              </Col>
-
+                  />
                   <div className="login_page_box_btn mt-4">
                     <ButtonCustom
                       type="button"

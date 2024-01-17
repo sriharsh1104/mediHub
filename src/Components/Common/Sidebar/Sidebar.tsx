@@ -25,7 +25,7 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
     },
     {
       // icon: <BalanceIcon />,
-      label: "employManager",
+      label: "Employ Manager",
       to: "/auth/employManager",
     },
 
