@@ -19,7 +19,8 @@ const initialState: UserData = {
     country: "",
     pincode: 0,
     companyName: "",
-  }
+  },
+  dashboardTab:"",
 };
 
 // UserData SLICE
@@ -34,13 +35,17 @@ export const userDataSlice = createSlice({
     setCompanyData: (state, action) => {
       state.companyData = action.payload;
     },
+    setDashboardTab: (state, action) => {
+      state.dashboardTab = action.payload;
+    },
     
   },
 });
 
 export const {
   resetAuthenticationDataSlice,
-  setCompanyData
+  setCompanyData,
+  setDashboardTab
  
 } = userDataSlice.actions;
 export default userDataSlice.reducer;

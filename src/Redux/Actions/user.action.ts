@@ -82,13 +82,18 @@ export const addEmployInCompany = async (data: any) => {
     console.error(error);
   }
 };
-export const getAllEmployeesForAdmin = async (data: any) => {
-  const { companyId } = data;
+export const getAllEmployeesForAdmin = async (
+  data: any,
+  page: number,
+  limit: number
+) => {
+  const queryParams = `?limit=${limit}&page=${page}`;
+
   try {
     let result: any = await apiCallPost(
-      APIURL["ALL_EMPLOYEES"],
+      APIURL["ALL_EMPLOYEES"] + queryParams,
       {
-        companyId: companyId,
+        companyId: data,
       },
       {},
       true,
@@ -103,22 +108,32 @@ export const getAllEmployeesForAdmin = async (data: any) => {
   }
 };
 export const updateSettingForAdmin = async (data: any) => {
-  const { gitHub,linkedIn,telegram,instagram,address,bio,Contact_Number,country,pincode ,companyId} = data;
+  const {
+    gitHub,
+    linkedIn,
+    telegram,
+    instagram,
+    address,
+    bio,
+    Contact_Number,
+    country,
+    pincode,
+    companyId,
+  } = data;
   try {
     let result: any = await apiCallPost(
       APIURL["UPDATE_ADMIN"],
       {
-        companyId:companyId,
+        companyId: companyId,
         gitHub: gitHub,
-        linkedIn:linkedIn,
-        telegram:telegram,
-        instagram:instagram,
-        address:address,
-        bio:bio,
-        phoneNo:Contact_Number,
-        country:country,
-        pincode:pincode
-
+        linkedIn: linkedIn,
+        telegram: telegram,
+        instagram: instagram,
+        address: address,
+        bio: bio,
+        phoneNo: Contact_Number,
+        country: country,
+        pincode: pincode,
       },
       {},
       true,

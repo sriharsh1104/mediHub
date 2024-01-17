@@ -1,6 +1,5 @@
 export interface UserData {
-  companyData:{
-
+  companyData: {
     firstName: string;
     lastName: string;
     emailAddress: string;
@@ -16,5 +15,6 @@ export interface UserData {
     country: string;
     pincode: number;
     companyName: string;
-  }
+  };
+  dashboardTab: string;
 }

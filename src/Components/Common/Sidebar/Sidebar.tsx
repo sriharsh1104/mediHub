@@ -7,6 +7,8 @@ import {
   AuditIcon,
   BalanceIcon,
   VotingIcon,
+  ProfileIcon,
+  AddEmploy,
 } from "../../../Assets/Images/Icons/SvgIcons";
 import logo from "../../../Assets/Images/oraora.png";
 import "./Sidebar.scss";
@@ -24,8 +26,8 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
     //   to: "/auth/post",
     // },
     {
-      // icon: <BalanceIcon />,
-      label: "Employ Manager",
+      icon: <AddEmploy />,
+      label: "Add Employ",
       to: "/auth/employManager",
     },
 
@@ -35,7 +37,7 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
       to: "/auth/setting",
     },
     {
-      // icon: <VotingIcon />,
+      icon: <ProfileIcon />,
       label: "Profile",
       to: "/auth/profile",
     },

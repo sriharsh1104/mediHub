@@ -13,7 +13,6 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-select": "^5.0.1",
-    "react-datepicker": "^4.16.0",
     "axios": "^1.3.4",
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.2.3",
@@ -39,6 +38,7 @@
     "react-idle-timer": "^5.5.3",
     "react-loader-spinner": "^5.3.4",
     "react-otp-input": "^3.0.2",
+    "react-paginate": "^8.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
@@ -62,7 +62,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
-},
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -84,10 +84,10 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
     "@types/jsonwebtoken": "^9.0.5",
+    "@types/react-datepicker": "^4.15.0",
     "@types/react-scroll": "^1.8.7",
     "assert": "^2.1.0",
     "axios-mock-adapter": "^1.21.2",
-    "@types/react-datepicker": "^4.15.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "https-browserify": "^1.0.0",

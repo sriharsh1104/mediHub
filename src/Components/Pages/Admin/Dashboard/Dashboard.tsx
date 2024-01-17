@@ -3,38 +3,68 @@ import DashboardCard from "./DashboardCard/DashboardCard";
 import user from "../../../../Assets/Images/user_img.png";
 import "./Dashboard.scss";
 import CustomPagination from "../../../Common/CustomPagination/CustomPagination";
-import { useEffect, useState } from "react";
+import { useEffect, useState,Dispatch } from "react";
 import { getAllEmployeesForAdmin } from "../../../../Redux/Actions/user.action";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setDashboardTab } from "../../../../Redux/Slices/user.slice";
 
+
+let limit: number = 2;
 const Dashboard = () => {
+  const itemsPerPage = 2;
+
+  const dispatch: Dispatch<any> = useDispatch();
+
   const organizationId = useSelector(
     (state: any) => state?.user?.companyData?.companyId
   );
-  console.log('organizationId', organizationId)
-
+  const activePage = useSelector(
+    (state: any) => state?.user?.userDashboardTab
+  );
+  const [count, setCount] = useState<any>(0);
+  const [currentPage, setCurrentPage] = useState(activePage);
+  const [totalPages, setTotalPages] = useState(1);
   const [employeeData, setEmployeeData] = useState<any>(null);
+  const [shouldScrollToTop, setShouldScrollToTop] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result: any = await getAllEmployeesForAdmin({
-          companyId: organizationId,
-        });
 
-        if (result?.status === 200) {
-          setEmployeeData(result?.data);
-        } else {
-          console.error("Failed to fetch data");
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchData = async (page: any) => {
+    try {
+      const result: any = await getAllEmployeesForAdmin(
+        organizationId,
+        page,
+        limit,
+      );
+
+      if (result?.status === 200) {
+        
+        setEmployeeData(result?.data);
+        setCount(result?.count);
+        const totalPosts = result?.count || 0;
+        setTotalPages(Math.ceil(totalPosts / itemsPerPage));
+
+      } else {
+        console.error("Failed to fetch data");
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handlePageChange = async (selected: any) => {
+    setCurrentPage(selected.selected);
+    dispatch(setDashboardTab(selected.selected));
+    setShouldScrollToTop(true);
+  };
+  useEffect(() => {
 
-    fetchData();
+    fetchData(currentPage);
   }, []);
-
+  useEffect(() => {
+    if (shouldScrollToTop) {
+      window.scrollTo(0, 0);
+      setShouldScrollToTop(false);
+    }
+  }, [shouldScrollToTop]);
   return (
     <section className="user_details">
       <Container fluid>
@@ -42,7 +72,7 @@ const Dashboard = () => {
           {employeeData?.map((employee: any) => (
             <Col xl={4} md={6} sm={6} key={employee}>
               <DashboardCard
-                key={employee?.id} // Make sure each component has a unique key
+                key={employee?.id} 
                 designation={employee?.designation}
                 name={employee?.name}
                 email={employee?.email}
@@ -52,7 +82,16 @@ const Dashboard = () => {
               />
             </Col>
           ))}
-          <CustomPagination className="dashboard_pagination" />
+         {count > limit ? (
+            <CustomPagination
+              activePageNumber={currentPage}
+              className="dashboard-pagination"
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageChange}
+            />
+          ) : null}
         </Row>
       </Container>
     </section>
