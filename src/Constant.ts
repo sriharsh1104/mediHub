@@ -5,4 +5,5 @@ export const APIURL = {
   USER_REGISTER: "/register",
   ADD_EMPLOY: "addEmployee",
   ALL_EMPLOYEES: "getAllEmployee",
+  UPDATE_ADMIN: "updateAdminSettings",
 };

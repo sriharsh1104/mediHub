@@ -2,21 +2,29 @@ import "./Setting.scss";
 import { Col, Row, Form } from "react-bootstrap";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "../../../../Redux/Store";
+import { Dispatch } from "react";
 import InputCustom from "../../../Common/Inputs/InputCustom";
 import { useState } from "react";
 import ButtonCustom from "../../../Common/Button/ButtonCustom";
 import TextArea from "../../../Common/FormInputs/TextArea";
-import social_img from "../../../../Assets/Images/git-hub.svg"
-import social_img2 from "../../../../Assets/Images/linkndin.svg"
-import social_img3 from "../../../../Assets/Images/telegram.svg"
-import social_img4 from "../../../../Assets/Images/insta.svg"
-
-
+import social_img from "../../../../Assets/Images/git-hub.svg";
+import social_img2 from "../../../../Assets/Images/linkndin.svg";
+import social_img3 from "../../../../Assets/Images/telegram.svg";
+import social_img4 from "../../../../Assets/Images/insta.svg";
+import { updateSettingForAdmin } from "../../../../Redux/Actions/user.action";
+import { useNavigate } from "react-router-dom";
+import toaster from "../../../Common/Toast";
+import { setCompanyData } from "../../../../Redux/Slices/user.slice";
+import { SettingResponse } from "../../../../interface/ApiResponses/SettingResponse";
 
 const Setting = () => {
-  const userData: any = useSelector((state: any) => state?.user);
+  const navigate = useNavigate();
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const userData: any = useSelector((state: any) => state?.user?.companyData?.details);
+  console.log('firs21131t', userData)
 
   const settingSchema = Yup.object().shape({
     gitHub: Yup.string().matches(
@@ -40,7 +48,9 @@ const Setting = () => {
     bio: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
     Contact_Number: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
     Country: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
-    Pincode: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
+    Pincode: Yup.number().max(2000, "Maximum 2000 Characters Allowed."),
+    companyid: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
+
   });
 
   const formik = useFormik({
@@ -51,24 +61,52 @@ const Setting = () => {
       instagram: userData?.instagram,
       address: userData?.address,
       bio: userData?.bio,
-      Contact_Number: userData?.contact_Number,
+      Contact_Number: userData?.Contact_Number,
       Country: userData?.country,
-      Pincode: userData?.cincode,
+      Pincode: userData?.Pincode,
+      companyId:userData?.companyId,
     },
     validationSchema: settingSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      // await updateSetting(e); 
+    },
   });
+  const updateSetting = async (e:any) => {
+    try {
+      e.preventDefault();
+      const result: SettingResponse = await updateSettingForAdmin({
+        gitHub: formik.values.gitHub.trim(),
+        linkedIn: formik.values.linkedIn.trim(),
+        telegram: formik.values.telegram.trim(),
+        instagram: formik.values.instagram.trim(),
+        address: formik.values.address.trim(),
+        bio: formik.values.bio.trim(),
+        Contact_Number: formik.values.Contact_Number,
+        Country: formik.values.Country.trim(),
+        Pincode: formik.values.Pincode,
+        companyId:userData?.companyId
+      });
+      console.log("3213131", result);
+
+      if (result?.status === 200) {
+        // dispatch(setCompanyData(result?.data));
+
+      } else {
+        toaster.info("Registration Failed");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    /*------------Setting Page Starts------------*/
-
     <section className="Setting">
       <h4 className="common-heading">Settings</h4>
       <div className="Setting_box">
         <div className="Setting_box_header">
           <div className="Setting_box_header_info">
             <div className="list_content">
-              <h6 className="user_info_name">{userData?.firstName}</h6>
+              <h6 className="user_info_name">{userData?.companyName}</h6>
               <p className="user_email">{userData?.emailAddress}</p>
             </div>
           </div>
@@ -101,6 +139,7 @@ const Setting = () => {
                   }
                 ></InputCustom>
               </Col>
+
               <Col md={6} xl={4}>
                 <InputCustom
                   label="Contact_Number"
@@ -128,6 +167,7 @@ const Setting = () => {
                   }
                 ></InputCustom>
               </Col>
+
               <Col md={6} xl={4}>
                 <InputCustom
                   label="Country "
@@ -137,7 +177,7 @@ const Setting = () => {
                   type="text"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  readOnly={true}
+                  defaultValue={userData?.country || ""}
                   value={formik.values.Country}
                   isInvalid={
                     formik.touched.Country && formik.errors.Country
@@ -149,7 +189,6 @@ const Setting = () => {
                       <span className="error-message"></span>
                     ) : null
                   }
-                  disabled
                 ></InputCustom>
               </Col>
               <Col md={6} xl={4}>
@@ -161,7 +200,6 @@ const Setting = () => {
                   type="text"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  readOnly={true}
                   value={formik.values.Pincode}
                   isInvalid={
                     formik.touched.Pincode && formik.errors.Pincode
@@ -173,7 +211,6 @@ const Setting = () => {
                       <span className="error-message"></span>
                     ) : null
                   }
-                  disabled
                 ></InputCustom>
               </Col>
               <Col md={6} xl={4}>
@@ -309,14 +346,13 @@ const Setting = () => {
                     }
                   ></InputCustom>
                 </div>
-                {/* <span className="error-message">{formik.errors.telegram}</span> */}
               </Col>
               <Col md={6} xl={4}>
                 <Form.Label>Instagram</Form.Label>
                 <div className="social_account">
                   <div className="social_links">
                     <div className="social_img">
-                      <img src={social_img4} alt="social-img" />  
+                      <img src={social_img4} alt="social-img" />
                     </div>
                     <span>Instagram</span>
                   </div>
@@ -374,7 +410,7 @@ const Setting = () => {
                   title="Update"
                   type="submit"
                   className="confirm_btn"
-                  onClick={(e: any) => {}}
+                  onClick={(e:any)=>updateSetting(e)}
                 />
               </Col>
             </Row>

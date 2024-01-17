@@ -11,11 +11,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import oraora from "../../../../Assets/Images/oraora.png";
 import CommonHeader from "../../../Common/CommonHeader/CommonHeader";
 import { userLogin } from "../../../../Redux/Actions/user.action";
-import { setCompanyId, setJwtToken } from "../../../../Redux/Slices/user.slice";
 import { useDispatch } from "react-redux";
 import { LoginResponse } from "../../../../interface/ApiResponses/LoginResponse";
 import toaster from "../../../Common/Toast";
 import Password from "../../../Common/FormInputs/Password";
+import { setCompanyData } from "../../../../Redux/Slices/user.slice";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const AdminLogin = () => {
       .max(300, "Maximum 300 Characters Are Allowed For Email.")
       .matches(
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        "Invalid Email"
+        "Invalid Emasettingil"
       ),
     password: Yup.string().required("Required"),
   });
@@ -48,8 +48,7 @@ const AdminLogin = () => {
       });
 
       if (result?.status === 200) {
-        dispatch(setCompanyId(result?.data?.details?.companyId));
-        dispatch(setJwtToken(result?.data?.accessToken));
+        dispatch(setCompanyData(result?.data));
         const decodedToken = jwt.decode(result?.data?.accessToken);
         if (
           decodedToken &&

@@ -10,10 +10,10 @@ import oraora from "../../../../Assets/Images/oraora.png";
 import CommonHeader from "../../../Common/CommonHeader/CommonHeader";
 import { RegisterResponse } from "../../../../interface/ApiResponses/RegisterResponse";
 import { userRegister } from "../../../../Redux/Actions/user.action";
-import { setCompanyId } from "../../../../Redux/Slices/user.slice";
 import { useDispatch } from "react-redux";
 import toaster from "../../../Common/Toast";
 import Password from "../../../Common/FormInputs/Password";
+import { setCompanyData } from "../../../../Redux/Slices/user.slice";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -49,7 +49,9 @@ const Register = () => {
       console.log("3213131", result);
 
       if (result?.status === 200) {
-        dispatch(setCompanyId(result?.data?.details?.companyId));
+        dispatch(setCompanyData(result?.data));
+        // dispatch(setCompanyName(result?.data?.details?.companyName));
+
 
         navigate("/");
       } else {

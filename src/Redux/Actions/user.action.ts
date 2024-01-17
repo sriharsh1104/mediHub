@@ -102,3 +102,33 @@ export const getAllEmployeesForAdmin = async (data: any) => {
     console.error(error);
   }
 };
+export const updateSettingForAdmin = async (data: any) => {
+  const { gitHub,linkedIn,telegram,instagram,address,bio,Contact_Number,Country,Pincode ,companyId} = data;
+  try {
+    let result: any = await apiCallPost(
+      APIURL["UPDATE_ADMIN"],
+      {
+        companyId:companyId,
+        gitHub: gitHub,
+        linkedIn:linkedIn,
+        telegram:telegram,
+        instagram:instagram,
+        address:address,
+        bio:bio,
+        phoneNo:Contact_Number,
+        country:Country,
+        pincode:Pincode
+
+      },
+      {},
+      true,
+      {}
+    );
+
+    if (result?.status === 200) {
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

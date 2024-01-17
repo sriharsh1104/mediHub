@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const organizationId = useSelector(
-    (state: any) => state?.user?.companyId
+    (state: any) => state?.user?.companyData?.details?.companyId
   );
   console.log('organizationId', organizationId)
 
