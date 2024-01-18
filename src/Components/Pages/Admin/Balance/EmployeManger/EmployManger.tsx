@@ -10,6 +10,9 @@ import CommonHeader from "../../../../Common/CommonHeader/CommonHeader";
 import { addEmployInCompany } from "../../../../../Redux/Actions/user.action";
 import { useDispatch, useSelector } from "react-redux";
 import { EmployManger } from "../../../../../interface/ApiResponses/EmployManger";
+import designationsList from "../../../../../DesignationsList/designationsList";
+import Select from "../../../../Common/Select/Select";
+import CustomSelect from "../../../../Common/Select/Select";
 
 const EmployMange = () => {
   const navigate = useNavigate();
@@ -52,7 +55,7 @@ const EmployMange = () => {
       const result: EmployManger = await addEmployInCompany({
         name: formik.values.name.trim(),
         email: formik.values.email.trim(),
-        designation: formik.values.designation.trim(),
+        designation: formik.values.designation,
         salary: formik.values.salary.trim(),
         empId: formik.values.empId,
         DateOfJoining: formik.values.DateOfJoining.trim(),
@@ -113,18 +116,21 @@ const EmployMange = () => {
                       ) : null
                     }
                   />
-
-                  <InputCustom
-                    label="Designation"
-                    placeholder="Designation"
+                  <Select
+                    // label="Designation"
                     id="designation"
                     name="designation"
-                    type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.designation}
-                    isInvalid={
-                      formik.touched.designation && !!formik.errors.designation
-                    }
+                    // options={designationsList}
+                    defaultValue={designationsList[""]}
+                    // defaultValue={formik.values.designation}
+                    onChange={(selectedOption: any) => {
+                      formik.setFieldValue("designation", selectedOption.label);
+                    }}
+                    options={designationsList.map((designation) => ({
+                      value: designation,
+                      label: designation,
+                    }))}
+                    // isSearchable={true} // Allow searching in the dropdown
                     error={
                       formik.errors.designation &&
                       formik.touched.designation ? (
