@@ -122,7 +122,7 @@ const EmployMange = () => {
                     defaultValue={designationsList[""]}
                     // defaultValue={formik.values.designation}
                     onChange={(selectedOption: any) => {
-                      formik.setFieldValue("designation", selectedOption);
+                      formik.setFieldValue("designation", selectedOption.value);
                     }}
                     options={designationsList.map((designation) => ({
                       value: designation,

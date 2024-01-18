@@ -35,7 +35,7 @@ const EmployDeleteModal = (props: any) => {
       e.preventDefault();
       const result: any = await updateEmplpoyInfo({
         empId: formik.values.empId,
-        companyId: userData?.companyId,
+        companyId: formik.values.companyId,
         deleteEmployee: formik.values.deleteEmployee,
       });
 
