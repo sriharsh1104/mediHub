@@ -4,6 +4,7 @@ import defaultUserIcon from "../../../../../Assets/Images/profile-img.svg";
 import "../Dashboard.scss";
 import { useState } from "react";
 import EmployEditModal from "../../../../Common/EmployEditModal/EmployEditModal";
+import EmployDeleteModal from "../../../../Common/EmployDeleteModal/EmployDeleteModal";
 
 const DashboardCard = ({
   designation,
@@ -13,28 +14,33 @@ const DashboardCard = ({
   salary,
   employID,
 }: any) => {
+  const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleEdit = () => {
+    setShowEditModal(true);
+  };
+  const handleDelete = () => {
     setShowDeleteModal(true);
-  };
-
-  const handleDeleteConfirm = () => {
-    console.log("Deleting");
-    setShowDeleteModal(false);
-  };
-
-  const handleDeleteCancel = () => {
-    setShowDeleteModal(false);
   };
 
   return (
     <div className="dashboard_card">
       <Link to="/">
-        <ButtonCustom className="dashboard_card_new" title="View Post" />
+        <ButtonCustom className="dashboard_card_btn" title="View Post" />
       </Link>
       <ButtonCustom className="dashboard_card_user" title={designation} />
       <EmployEditModal
+        designation={designation}
+        name={name}
+        email={email}
+        joinDate={joinDate}
+        salary={salary}
+        employID={employID}
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+      />
+      <EmployDeleteModal
         designation={designation}
         name={name}
         email={email}
@@ -45,10 +51,16 @@ const DashboardCard = ({
         onHide={() => setShowDeleteModal(false)}
       />
       <ButtonCustom
-        className="dashboard_card_btn"
+        className="dashboard_card_"
+        title="Delete"
+        onClick={handleDelete}
+      />
+      <ButtonCustom
+        className="dashboard_card_new"
         title="Edit"
         onClick={handleEdit}
       />
+
       <div className="dashboard_card_inner_body">
         <h6>Joining Date: {joinDate}</h6>
       </div>

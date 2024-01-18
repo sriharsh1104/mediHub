@@ -57,10 +57,7 @@ const EmployEditModal = (props: any) => {
       });
 
       if (result?.status === 200) {
-        // formik.resetForm();
-        // props?.onHide();
       } else {
-        // formik.resetForm();
       }
     } catch (error) {
       console.error(error);
