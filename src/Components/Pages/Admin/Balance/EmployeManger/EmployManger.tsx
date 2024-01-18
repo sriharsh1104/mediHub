@@ -15,7 +15,7 @@ const EmployMange = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
   const organizationId = useSelector(
-    (state: any) => state?.userDataSlice?.companyId
+    (state: any) => state?.user?.companyData?.companyId
   );
 
   const employeeSchema = Yup.object().shape({
