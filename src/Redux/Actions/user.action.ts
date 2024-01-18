@@ -147,3 +147,39 @@ export const updateSettingForAdmin = async (data: any) => {
     console.error(error);
   }
 };
+export const updateEmplpoyInfo = async (data: any) => {
+  const {
+    name,
+    email,
+    designation,
+    salary,
+    DateOfJoining,
+    empId,
+    companyId,
+    deleteEmployee,
+  } = data;
+  try {
+    let result: any = await apiCallPost(
+      APIURL["UPDATE_EMPLOYDATA"],
+      {
+        name: name,
+        email: email,
+        designation: designation,
+        salary: salary,
+        empId: empId,
+        companyId: companyId,
+        doj: DateOfJoining,
+        deleteEmployee: deleteEmployee,
+      },
+      {},
+      true,
+      {}
+    );
+
+    if (result?.status === 200) {
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

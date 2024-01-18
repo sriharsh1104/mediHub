@@ -25,7 +25,7 @@ const Dashboard = () => {
   const [employeeData, setEmployeeData] = useState<any>(null);
   const [shouldScrollToTop, setShouldScrollToTop] = useState(false);
 
-  const fetchData = async (page: any) => {
+  const dashbaordDataForAdmin = async (page: any) => {
     try {
       const result: any = await getAllEmployeesForAdmin(
         organizationId,
@@ -51,7 +51,7 @@ const Dashboard = () => {
     setShouldScrollToTop(true);
   };
   useEffect(() => {
-    fetchData(currentPage + 1);
+    dashbaordDataForAdmin(currentPage + 1);
   }, [currentPage + 1]);
   useEffect(() => {
     if (shouldScrollToTop) {

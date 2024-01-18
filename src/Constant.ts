@@ -6,4 +6,5 @@ export const APIURL = {
   ADD_EMPLOY: "addEmployee",
   ALL_EMPLOYEES: "getAllEmployee",
   UPDATE_ADMIN: "updateAdminSettings",
+  UPDATE_EMPLOYDATA: "changeEmployeeData",
 };

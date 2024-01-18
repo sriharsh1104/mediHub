@@ -62,10 +62,8 @@ const EmployMange = () => {
         companyId: organizationId,
       });
       if (result?.status === 200) {
-        // Handle success, e.g., show a success message
         console.log("Employee added successfully");
       } else {
-        // Handle error, e.g., show an error message
         console.error("Error adding employee");
       }
     } catch (error) {
@@ -124,7 +122,7 @@ const EmployMange = () => {
                     defaultValue={designationsList[""]}
                     // defaultValue={formik.values.designation}
                     onChange={(selectedOption: any) => {
-                      formik.setFieldValue("designation", selectedOption.label);
+                      formik.setFieldValue("designation", selectedOption);
                     }}
                     options={designationsList.map((designation) => ({
                       value: designation,

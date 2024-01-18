@@ -45,3 +45,4 @@ const designationsList: string[] = [
 ];
 
 export default designationsList;
+

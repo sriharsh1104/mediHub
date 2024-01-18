@@ -50,8 +50,6 @@ const Register = () => {
 
       if (result?.status === 200) {
         dispatch(setCompanyData(result?.data));
-        // dispatch(setCompanyName(result?.data?.details?.companyName));
-
 
         navigate("/");
       } else {

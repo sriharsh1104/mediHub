@@ -2,22 +2,53 @@ import { Link } from "react-router-dom";
 import ButtonCustom from "../../../../Common/Button/ButtonCustom";
 import defaultUserIcon from "../../../../../Assets/Images/profile-img.svg";
 import "../Dashboard.scss";
+import { useState } from "react";
+import EmployEditModal from "../../../../Common/ChangePassword/EmployEditModal";
 
 const DashboardCard = ({
   designation,
   name,
   email,
-  salary,
   joinDate,
+  salary,
   employID,
 }: any) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleEdit = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    console.log("Deleting");
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <div className="dashboard_card">
       <Link to="/">
         <ButtonCustom className="dashboard_card_new" title="View Post" />
       </Link>
       <ButtonCustom className="dashboard_card_user" title={designation} />
-
+      <EmployEditModal
+        designation={designation}
+        name={name}
+        email={email}
+        joinDate={joinDate}
+        salary={salary}
+        employID={employID}
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+      />
+      <ButtonCustom
+        className="dashboard_card_btn"
+        title="Edit"
+        onClick={handleEdit}
+      />
       <div className="dashboard_card_inner_body">
         <h6>Joining Date: {joinDate}</h6>
       </div>
@@ -33,30 +64,6 @@ const DashboardCard = ({
           </div>
         </div>
       </div>
-      {/* <div className="dashboard_card_audit">
-        <h6>Audit Types: </h6>
-        {true ? (
-          <div className="dashboard_card_audit_card">
-            <p>{true}</p>
-          </div>
-        ) : (
-          ""
-        )}
-        {true ? (
-          <div className="dashboard_card_audit_card">
-            <p>{true}</p>
-          </div>
-        ) : (
-          ""
-        )}
-        {true ? (
-          <div className="dashboard_card_audit_card">
-            <p>{true}</p>
-          </div>
-        ) : (
-          ""
-        )}
-      </div> */}
       <div className="dashboard_card_footer">
         {[1, 2, 3]?.map((item: any, key: any) => (
           <div key={key} className="dashboard_card_footer_inner">
