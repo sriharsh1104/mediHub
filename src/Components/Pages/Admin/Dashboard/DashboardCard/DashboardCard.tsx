@@ -3,7 +3,7 @@ import ButtonCustom from "../../../../Common/Button/ButtonCustom";
 import defaultUserIcon from "../../../../../Assets/Images/profile-img.svg";
 import "../Dashboard.scss";
 import { useState } from "react";
-import EmployEditModal from "../../../../Common/ChangePassword/EmployEditModal";
+import EmployEditModal from "../../../../Common/EmployEditModal/EmployEditModal";
 
 const DashboardCard = ({
   designation,
