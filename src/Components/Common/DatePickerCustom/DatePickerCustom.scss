@@ -1,15 +1,12 @@
 @import "../../../Assets/theme/_var.scss";
 
 .datepicker-style {
-  padding: 0.7rem 2.7rem;
+  position: relative;
+  // padding: 0.7rem 2.7rem;
   border-radius: 58px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.13);
   width: 100%;
-
-  @media (max-width: 1679px) {
-    padding: 0.3rem 1.5rem;
-  }
 
   @media (max-width: 1439px) {
     max-width: 22rem;
@@ -19,13 +16,40 @@
     max-width: 19rem;
   }
 
+  &__wrap {
+    width: 100%;
+
+    small {
+      display: none !important;
+    }
+
+    .react-datepicker-wrapper {
+      width: 100%;
+
+      input {
+        background-color: transparent !important;
+        padding: 1.7rem 2.7rem !important;
+
+        @media(max-width: 1679px) {
+          padding: 1.3rem 2.7rem !important;
+        }
+
+      }
+    }
+  }
+
   img {
     margin-right: 1.2rem;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   small {
     font-size: 1rem;
     color: rgba($white, 0.6);
+
     @media (max-width: 1679px) {
       font-size: 0.9rem;
     }
@@ -33,25 +57,29 @@
 
   .react-datepicker {
     font-size: 1.3rem;
+
     @media (max-width: 1679px) {
       font-size: 1.2rem;
     }
+
     &__input-container {
       input {
         background-color: $baseColor;
         border: 0;
         font-size: 1.6rem;
         font-weight: 400;
-        color: $white;
+        color: #000;
         padding: 0;
         width: 100%;
 
         @media (max-width: 1679px) {
           font-size: 1.4rem;
         }
+
         @media (max-width: 767px) {
           font-size: 1.2rem;
         }
+
         &:focus-visible {
           outline: 0;
         }

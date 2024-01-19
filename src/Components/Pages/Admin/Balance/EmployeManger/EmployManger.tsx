@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Dispatch } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import ButtonCustom from "../../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../../Common/Inputs/InputCustom";
 import "../EmployeManger/Balance.scss";
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { EmployManger } from "../../../../../interface/ApiResponses/EmployManger";
 import designationsList from "../../../../../DesignationsList/designationsList";
 import Select from "../../../../Common/Select/Select";
-import CustomSelect from "../../../../Common/Select/Select";
+import DatePickerCustom from "../../../../Common/DatePickerCustom/DatePickerCustom";
 
 const EmployMange = () => {
   const navigate = useNavigate();
@@ -20,14 +20,15 @@ const EmployMange = () => {
   const organizationId = useSelector(
     (state: any) => state?.user?.companyData?.companyId
   );
+  const [check, setCheck] = useState<any>({ state: false, value: "" });
 
-  const employeeSchema = Yup.object().shape({
-    name: Yup.string().required("*This Field Is Required."),
-    email: Yup.string()
-      .email("Input A Valid Email.")
-      .required("*This Field Is Required.")
-      .max(300, "Maximum 300 Characters Are Allowed For Email.")
-      .matches(
+const employeeSchema = Yup.object().shape({
+  name: Yup.string().required("*This Field Is Required."),
+  email: Yup.string()
+    .email("Input A Valid Email.")
+    .required("*This Field Is Required.")
+    .max(300, "Maximum 300 Characters Are Allowed For Email.")
+    .matches(
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         "Invalid Email"
       ),
@@ -70,6 +71,24 @@ const EmployMange = () => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    if (check.value) {
+      formik.setValues((prevValues) => ({
+        ...prevValues,
+        DateOfJoining: check.value,
+      }));
+    }
+  }, [check?.state]);
+  useEffect(() => {
+    formik.setValues({
+      name: "",
+      email: "",
+      designation: "",
+      salary: "",
+      empId: 0,
+      DateOfJoining: check.value || "", // Set the initial value or use an empty string
+    });
+  }, []);
   return (
     <>
       <section className="login_page">
@@ -116,6 +135,7 @@ const EmployMange = () => {
                   />
                   <Select
                     // label="Designation"
+
                     id="designation"
                     name="designation"
                     // options={designationsList}
@@ -124,7 +144,7 @@ const EmployMange = () => {
                     onChange={(selectedOption: any) => {
                       formik.setFieldValue("designation", selectedOption.value);
                     }}
-                    options={designationsList.map((designation) => ({
+                    options={designationsList?.map((designation) => ({
                       value: designation,
                       label: designation,
                     }))}
@@ -186,14 +206,21 @@ const EmployMange = () => {
                       ) : null
                     }
                   />
-                  <InputCustom
-                    label="Date Of Joining"
-                    placeholder="Date Of Joining"
-                    id="address"
+                  <DatePickerCustom
+                    label={
+                      <>
+                        DateOfJoining <sup>*</sup>
+                      </>
+                    }
+                    placeholder="Employ Date Of Joining"
+                    id="DateOfJoining"
                     name="DateOfJoining"
-                    type="DateOfJoining"
+                    type="date"
                     onChange={formik.handleChange}
                     value={formik.values.DateOfJoining}
+                    dateFormat="dd/MM/yyyy"
+                    checkSetter={setCheck}
+                    check={check}
                     isInvalid={
                       formik.touched.DateOfJoining &&
                       !!formik.errors.DateOfJoining

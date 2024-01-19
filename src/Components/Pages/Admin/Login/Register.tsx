@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Dispatch } from "react";
+import { Dispatch, useState } from "react";
 import ButtonCustom from "../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../Common/Inputs/InputCustom";
 import "./Login.scss";
@@ -14,12 +14,14 @@ import { useDispatch } from "react-redux";
 import toaster from "../../../Common/Toast";
 import Password from "../../../Common/FormInputs/Password";
 import { setCompanyData } from "../../../../Redux/Slices/user.slice";
+import Select from "../../../Common/Select/Select";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
+  const [checkedType, setCheckedType] = useState<any>([]);
 
-  const loginSchema = Yup.object().shape({
+  const RegisterSchema = Yup.object().shape({
     address: Yup.string().required("*This Field is required"),
   });
   const formik = useFormik({
@@ -32,7 +34,7 @@ const Register = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: loginSchema,
+    validationSchema: RegisterSchema,
     onSubmit: async (values) => {},
   });
   const handleRegister = async () => {
@@ -42,11 +44,10 @@ const Register = () => {
         firstName: formik.values.firstName.trim(),
         lastName: formik.values.lastName.trim(),
         companyName: formik.values.companyName.trim(),
-        numberOfEmployees: formik.values.numberOfEmployees.trim(),
+        numberOfEmployees: formik.values.numberOfEmployees,
         password: formik.values.password.trim(),
         confirmPassword: formik.values.confirmPassword.trim(),
       });
-      console.log("3213131", result);
 
       if (result?.status === 200) {
         dispatch(setCompanyData(result?.data));
@@ -59,6 +60,75 @@ const Register = () => {
       console.error(error);
     }
   };
+  const options = [
+    {
+      value: "1-49",
+      label: (
+        <>
+          <input
+            type="checkbox"
+            checked={checkedType.includes("1-49")}
+            className="post_checkbox"
+            readOnly
+          />
+          1-49
+        </>
+      ),
+    },
+    {
+      value: "50-99",
+      label: (
+        <>
+          <input
+            type="checkbox"
+            checked={checkedType.includes("50-99")}
+            className="post_checkbox"
+            readOnly
+          />
+          50-99
+        </>
+      ),
+    },
+    {
+      value: "100-249",
+      label: (
+        <>
+          <input
+            type="checkbox"
+            checked={checkedType.includes("100-249")}
+            className="post_checkbox"
+            readOnly
+          />
+          100-249
+        </>
+      ),
+    },
+    {
+      value: "250-499",
+      label: (
+        <>
+          <input
+            type="checkbox"
+            checked={checkedType.includes("250-499")}
+            className="post_checkbox"
+            readOnly
+          />
+          250-499
+        </>
+      ),
+    },
+  ];
+
+  const handleNumberOfEmploySelect = (selectedOption: any) => {
+    console.log("utrrprrr",selectedOption)
+    const selectedValue = selectedOption?.value;
+    
+    setCheckedType([selectedValue]);
+    
+    formik.setFieldValue("numberOfEmployees", selectedValue);
+    formik.setFieldTouched("numberOfEmployees", true);
+  };
+  
 
   return (
     <>
@@ -138,7 +208,6 @@ const Register = () => {
                     name="companyName"
                     type="text"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.companyName}
                     isInvalid={
                       formik.touched.companyName && !!formik.errors.companyName
@@ -151,24 +220,23 @@ const Register = () => {
                         </span>
                       ) : null
                     }
-                  >
-                    <option value="" label="Select number of employees" />
-                    <option value="1-10" label="1-10 employees" />
-                    <option value="11-50" label="11-50 employees" />
-                    <option value="51-100" label="51-100 employees" />
-                  </InputCustom>
-                  <InputCustom
-                    label="NO. OF EMPLOYEES "
+                  ></InputCustom>
+                  <Form.Label>
+                    No Of Employees<sup>*</sup>
+                  </Form.Label>
+                  <Select
                     placeholder="Number Of Employees"
                     id="numberOfEmployees"
                     name="numberOfEmployees"
-                    type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.numberOfEmployees}
-                    isInvalid={
-                      formik.touched.numberOfEmployees &&
-                      !!formik.errors.numberOfEmployees
-                    }
+                    closeMenuOnSelect={true}
+                    hideSelectedOptions={false}
+                    isMulti={false}
+                    options={options}
+                    onChange={handleNumberOfEmploySelect}
+                    defaultValue={options[""]}
+                    value={options.find((opt) =>
+                      checkedType.includes(opt.value)
+                    )}
                     error={
                       formik.errors.numberOfEmployees &&
                       formik.touched.numberOfEmployees ? (
@@ -204,7 +272,6 @@ const Register = () => {
                     name="confirmPassword"
                     type="password"
                     onChange={formik.handleChange}
-                    // autoFocus={true}
                     value={formik.values.confirmPassword}
                     isInvalid={
                       formik.touched.confirmPassword &&

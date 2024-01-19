@@ -28,7 +28,7 @@ export const userRegister = async (data: any) => {
     firstName,
     lastName,
     companyName,
-    noOfEmployees,
+    numberOfEmployees,
     password,
   } = data;
   try {
@@ -39,7 +39,7 @@ export const userRegister = async (data: any) => {
         firstName: firstName,
         lastName: lastName,
         companyName: companyName,
-        noOfEmployees: noOfEmployees,
+        noOfEmployees: numberOfEmployees,
         password: password,
       },
       {},

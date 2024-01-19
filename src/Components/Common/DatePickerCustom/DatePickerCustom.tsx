@@ -1,46 +1,80 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import calenderIcon from "../../../Assets/Images/Icons/calenderIcon.svg";
 import moment from "moment";
 import "./DatePickerCustom.scss";
+import calenderIcon from "../../../Assets/Images/Icons/calenderIcon.svg";
 
-const DatePickerCustom = ({ className, callback, type, reset,label }: any) => {
-  // const [startDate, setStartDate] = useState(new Date) as any;
+const DatePickerCustom = ({
+  className,
+  type,
+  onChange,
+  label,
+  dateFormat,
+  data,
+  check,
+  checkSetter,
+  dateType,
+  resetState,
+  setResetState,
+}: any) => {
   const [startDate, setStartDate] = useState() as any;
-
-  useEffect(() => {
-    if (reset === true) {
-      setStartDate();
-    }
-  }, [reset]);
+  const [showError, setShowError] = useState(false);
 
   const onChangeHandler = (date: any) => {
-    let final = moment(date).format("YYYY-MM-DD");
-    callback(type, final);
+    const finalDateSet = moment(date).format("DD/MM/YYYY");
+    onChange(finalDateSet);
+  
+    const newData = { ...data }; // Create a shallow copy of data
+    newData[dateType] = finalDateSet;
+    checkSetter({ state: !check.state, value: finalDateSet });
     setStartDate(date);
+    setShowError(false);
   };
+  const onBlurHandler = () => {
+    if (!startDate) {
+      setShowError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (resetState) {
+      setStartDate("");
+      setResetState(false);
+    }
+  }, [resetState]);
+  const minDate = moment().add(1, "days").toDate();
+
   return (
-    <div
-      className={`datepicker-style d-inline-flex align-items-center ${className}`}
-    >
+    <>
       <label>{label}</label>
-      <img src={calenderIcon} alt="icon" />
-      <div className="datepicker-style__wrap">
-        <small className="d-block">
-          {type == "start" ? "From" : "To"} Date
-        </small>
-        <DatePicker
-          calendarClassName="ankit-d"
-          selected={startDate}
-          onChange={(date: Date) => {
-            onChangeHandler(date);
-          }}
-          placeholderText="DD/MM/YYYY"
-          maxDate={new Date()}
-        />
+      <div className={`datepicker-style ${className}`}>
+        <div className="datepicker-style__wrap">
+          <small className="d-block">
+            {type === "start" ? "From" : "To"} Date
+          </small>
+          <DatePicker
+            calendarClassName="ankit-d"
+            selected={startDate}
+            onChange={(date: Date) => {
+              onChangeHandler(date);
+            }}
+            placeholderText="DD/MM/YYYY"
+            minDate={minDate}
+            dateFormat={dateFormat}
+            onKeyDown={(e) => {
+              e.preventDefault();
+            }}
+            onBlur={onBlurHandler}
+          />
+        </div>
+
+        <img src={calenderIcon} alt="icon" />
       </div>
-    </div>
+      {showError && (
+        <div className="error-message">*This field is required</div>
+      )}
+    </>
   );
 };
 

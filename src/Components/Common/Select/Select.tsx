@@ -20,6 +20,7 @@ type propsType = {
   onBlur?: any;
   smallText?: any;
   error?: any;
+  label?:any;
 };
 
 const CustomSelect = ({

@@ -8,10 +8,13 @@ import { CloseEye, EyeIcon } from "../../../Assets/Images/Icons/SvgIcons";
 import { useNavigate } from "react-router-dom";
 import InputCustom from "../Inputs/InputCustom";
 import { updateEmplpoyInfo } from "../../../Redux/Actions/user.action";
+import DatePickerCustom from "../DatePickerCustom/DatePickerCustom";
+import { useEffect, useState } from "react";
 
 const EmployEditModal = (props: any) => {
   const navigate = useNavigate();
   const userData = useSelector((state: any) => state?.user?.companyData);
+  const [check, setCheck] = useState<any>({ state: false, value: "" });
   const employEditModalSchema = Yup.object().shape({
     name: Yup.string().required("*This Field Is Required."),
     email: Yup.string().required("*Old Password Is Required."),
@@ -30,7 +33,7 @@ const EmployEditModal = (props: any) => {
       designation: props?.designation,
       salary: props?.salary,
       DateOfJoining: props?.joinDate,
-      empId:props?.employID,
+      empId: props?.employID,
       companyId: props?.companyId,
       deleteEmployee: false,
     },
@@ -63,7 +66,26 @@ const EmployEditModal = (props: any) => {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    if (check.value) {
+      formik.setValues((prevValues) => ({
+        ...prevValues,
+        DateOfJoining: check.value,
+      }));
+    }
+  }, [check?.state]);
+  useEffect(() => {
+    formik.setValues({
+      name: props.name,
+      email: props.email,
+      designation: props.designation,
+      salary: props.salary,
+      empId: props.employID,
+      DateOfJoining: check.value || "",
+      companyId: 0,
+      deleteEmployee: false,
+    });
+  }, []);
   return (
     <>
       <CommonModal
@@ -140,7 +162,7 @@ const EmployEditModal = (props: any) => {
               ) : null
             }
           />
-          <InputCustom
+          <DatePickerCustom
             label={
               <>
                 DateOfJoining <sup>*</sup>
@@ -149,11 +171,16 @@ const EmployEditModal = (props: any) => {
             placeholder="Employ DateOfJoining"
             id="DateOfJoining"
             name="DateOfJoining"
-            type="text"
+            type="date"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            checkSetter={setCheck}
+            check={check}
             value={formik.values.DateOfJoining}
-            rightIcon={EyeIcon}
+            dateFormat="dd/MM/yyyy"
+            isInvalid={
+              formik.touched.DateOfJoining && !!formik.errors.DateOfJoining
+            }
             error={
               formik.errors.DateOfJoining && formik.touched.DateOfJoining ? (
                 <span className="error-message">
