@@ -183,3 +183,25 @@ export const updateEmplpoyInfo = async (data: any) => {
     console.error(error);
   }
 };
+export const setUpLoginForUser = async (data: any) => {
+  const { token, password,uniqueId } = data;
+  try {
+    let result: any = await apiCallPost(
+      APIURL["SETUPUSERPASSWORD"],
+      {
+        password: password,
+        token:token,
+        uniqueId:uniqueId
+      },
+      {},
+      false,
+      {}
+    );
+    if (result?.status === 200) {
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+

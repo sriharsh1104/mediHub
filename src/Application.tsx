@@ -19,6 +19,7 @@ import Voting from "./Components/Pages/Admin/Voting/Voting";
 import Setting from "./Components/Pages/Admin/Setting/Setting";
 import EmployMange from "./Components/Pages/Admin/Balance/EmployeManger/EmployManger";
 import ProfileBio from "./Components/Common/ProfileBio/ProfileBio";
+import LoginSetUp from "./Components/Pages/Admin/LoginStepup/LoginSetUp";
 
 const Application: React.FC = () => {
   const router = createBrowserRouter([
@@ -32,6 +33,11 @@ const Application: React.FC = () => {
       index: true,
       path: "/",
       element: <AdminLogin />,
+      errorElement: <ErrorBoundary />,
+    },
+    {
+      path: "/setupPassword",
+      element: <LoginSetUp />,
       errorElement: <ErrorBoundary />,
     },
     {

@@ -7,4 +7,5 @@ export const APIURL = {
   ALL_EMPLOYEES: "getAllEmployee",
   UPDATE_ADMIN: "updateAdminSettings",
   UPDATE_EMPLOYDATA: "changeEmployeeData",
+  SETUPUSERPASSWORD: "/setUpPassword",
 };
