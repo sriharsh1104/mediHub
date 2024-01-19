@@ -1,6 +1,6 @@
 import React from 'react';
 import "./CommonHeader.scss";
-import logo from "../../../Assets/Images/logo.svg";
+import logo from "../../../Assets/Images/Oraora.jpg";
 
 const CommonHeader = () => {
     return (

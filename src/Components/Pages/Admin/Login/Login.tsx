@@ -8,7 +8,8 @@ import ButtonCustom from "../../../Common/Button/ButtonCustom";
 import InputCustom from "../../../Common/Inputs/InputCustom";
 import "./Login.scss";
 import { Col, Container, Row } from "react-bootstrap";
-import oraora from "../../../../Assets/Images/oraora.png";
+// import oraora from "../../../../Assets/Images/oraora.png";
+import crm from "../../../../Assets/Images/crm.jpg";
 import CommonHeader from "../../../Common/CommonHeader/CommonHeader";
 import { userLogin } from "../../../../Redux/Actions/user.action";
 import { setCompanyId, setJwtToken } from "../../../../Redux/Slices/user.slice";
@@ -76,15 +77,15 @@ const AdminLogin = () => {
   return (
     <>
       <section className="login_page">
-        <Container>
-          <CommonHeader />
+        {/* <CommonHeader/> */}
+        <Container className="login-container">
           <Row>
-            <Col md={12} lg={6}>
-              <div className="login_page_img">
-                <img src={oraora} height={550} alt="login_bg" />
+            <Col>
+              <div className="wel_come">
+                <p className="text_p">WELCOME TO ORA ORA</p>
               </div>
             </Col>
-            <Col md={12} lg={6}>
+            <Col md={12} lg={6} style={{ marginLeft: "auto" }}>
               <div className="login_page_box">
                 {/* <CommonHeading heading="Login" /> */}
                 <h4>Login</h4>

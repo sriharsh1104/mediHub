@@ -22,23 +22,32 @@
       right: 5%;
       top: 50%;
       transform: translateY(-50%);
+
     }
   }
 
   .form-control {
-    // height: 6rem;
+    height: 6rem;
     box-shadow: none;
     outline: none;
-    width: 100%;
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 4rem;
     padding: 0.9rem 2.7rem;
     border: 1px solid rgba(22, 26, 50, 1.5);
-    // border: 0.1rem solid rgba($white, 0.1);
+    border: 0.1rem solid rgba($white, 0.1);
     border-radius: 3.5rem;
     background-color: transparent;
     color: $white;
+    width: 100%;
+    padding: 0.8em 1em;
+    border: 0.25em solid transparent;
+    border-image: linear-gradient(120deg, #f09 0%, #0ff 50%, #9f0 100%);
+    border-image-slice: 1;
+    border-image-source: linear-gradient(#000, #000);
+    border-radius: 1.8em;
+    background-size: 200% 100%;
+    transition: background-position 0.8s ease-out;
 
     &:focus {
       background-color: transparent;
