@@ -51,7 +51,7 @@ const DashboardCard = ({
         onHide={() => setShowDeleteModal(false)}
       />
       <ButtonCustom
-        className="dashboard_card_"
+        className="extend_timeline"
         title="Delete"
         onClick={handleDelete}
       />

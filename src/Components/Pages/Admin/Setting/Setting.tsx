@@ -3,10 +3,8 @@ import { Col, Row, Form } from "react-bootstrap";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import store from "../../../../Redux/Store";
 import { Dispatch } from "react";
 import InputCustom from "../../../Common/Inputs/InputCustom";
-import { useState } from "react";
 import ButtonCustom from "../../../Common/Button/ButtonCustom";
 import TextArea from "../../../Common/FormInputs/TextArea";
 import social_img from "../../../../Assets/Images/git-hub.svg";
@@ -24,7 +22,7 @@ const Setting = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
   const userData: any = useSelector((state: any) => state?.user?.companyData);
-  console.log('firs21131t', userData)
+  console.log("firs21131t", userData);
 
   const settingSchema = Yup.object().shape({
     gitHub: Yup.string().matches(
@@ -50,7 +48,6 @@ const Setting = () => {
     country: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
     pincode: Yup.number().max(2000, "Maximum 2000 Characters Allowed."),
     companyid: Yup.string().max(2000, "Maximum 2000 Characters Allowed."),
-
   });
 
   const formik = useFormik({
@@ -64,14 +61,14 @@ const Setting = () => {
       contact_Number: userData?.phoneNo,
       country: userData?.country,
       pincode: userData?.pincode,
-      companyId:userData?.companyId,
+      companyId: userData?.companyId,
     },
     validationSchema: settingSchema,
     onSubmit: async (values) => {
-      // await updateSetting(e); 
+      // await updateSetting(e);
     },
   });
-  const updateSetting = async (e:any) => {
+  const updateSetting = async (e: any) => {
     try {
       e.preventDefault();
       const result: SettingResponse = await updateSettingForAdmin({
@@ -84,13 +81,12 @@ const Setting = () => {
         contact_Number: formik.values.contact_Number,
         country: formik.values.country.trim(),
         pincode: formik.values.pincode,
-        companyId:userData?.companyId
+        companyId: userData?.companyId,
       });
       console.log("3213131", result);
 
       if (result?.status === 200) {
-        dispatch(setCompanyData(result?.data)); 
-
+        dispatch(setCompanyData(result?.data));
       } else {
         toaster.info("Registration Failed");
       }
@@ -410,7 +406,7 @@ const Setting = () => {
                   title="Update"
                   type="submit"
                   className="confirm_btn"
-                  onClick={(e:any)=>updateSetting(e)}
+                  onClick={(e: any) => updateSetting(e)}
                 />
               </Col>
             </Row>
