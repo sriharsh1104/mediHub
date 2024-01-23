@@ -55,7 +55,7 @@ export const userRegister = async (data: any) => {
   }
 };
 export const addEmployInCompany = async (data: any) => {
-  const { name, email, designation, salary, empId, companyId, DateOfJoining,reportingManger } =
+  const { name, email, role, salary, empId, companyId, DateOfJoining,reportingManger } =
     data;
   console.log("firssadakjndskjat", data);
   try {
@@ -64,7 +64,7 @@ export const addEmployInCompany = async (data: any) => {
       {
         name: name,
         email: email,
-        designation: designation,
+        designation: role,
         salary: salary,
         empId: empId,
         companyId: companyId,
@@ -260,6 +260,29 @@ export const addRole = async (data: any) => {
         positionName:positionName,
         reportingTo:reportingTo,
         reportingToId:reportingToId,
+      },
+      {},
+      false,
+      {}
+    );
+    if (result?.status === 200) {
+      console.log('result123', result)
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const filterReportingManager = async (data: any) => {
+  
+  const { companyId,roleId } = data;
+  console.log('result123', data)
+  try {
+    let result: any = await apiCallPost(
+      APIURL["FILTER_PARENT_ROLE"],
+      {
+        companyId: companyId,
+        roleId:roleId,
       },
       {},
       false,

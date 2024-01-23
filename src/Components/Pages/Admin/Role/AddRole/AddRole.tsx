@@ -7,7 +7,6 @@ import { addRole } from "../../../../../Redux/Actions/user.action";
 import CommonModal from "../../../../Common/CommonModal/CommonModal";
 import InputCustom from "../../../../Common/Inputs/InputCustom";
 import ButtonCustom from "../../../../Common/Button/ButtonCustom";
-import { EyeIcon } from "../../../../../Assets/Images/Icons/SvgIcons";
 import TreeItem from "@material-ui/lab/TreeItem";
 import { useState } from "react";
 import TreeView from "@material-ui/lab/TreeView";
@@ -54,7 +53,7 @@ const AddRole = (props: any) => {
 
       if (result?.status === 200) {
         await props.fetchData();
-        handleCrossClick()
+        handleCrossClick();
       } else {
       }
     } catch (error) {

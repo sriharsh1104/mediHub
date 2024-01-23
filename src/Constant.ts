@@ -11,4 +11,5 @@ export const APIURL = {
   REPORTING_DATA:"/getPositionRespectiveDetails" ,// not done
   FETCH_ROLE:"/fetchRoles",
   ADD_ROLES:"/addRoles",
+  FILTER_PARENT_ROLE:"/filterParentRole",
 };
