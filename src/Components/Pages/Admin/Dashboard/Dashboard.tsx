@@ -18,7 +18,6 @@ const Dashboard = () => {
     (state: any) => state?.user?.companyData?.companyId
   );
   const activePage = useSelector((state: any) => state?.user?.dashboardTab);
-  console.log("activePage", activePage);
   const [count, setCount] = useState<any>(0);
   const [currentPage, setCurrentPage] = useState(activePage);
   const [totalPages, setTotalPages] = useState(1);

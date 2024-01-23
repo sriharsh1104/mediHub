@@ -9,6 +9,7 @@ import {
   VotingIcon,
   ProfileIcon,
   AddEmploy,
+  Role,
 } from "../../../Assets/Images/Icons/SvgIcons";
 import logo from "../../../Assets/Images/oraora.png";
 import "./Sidebar.scss";
@@ -42,7 +43,7 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
       to: "/auth/profile",
     },
     {
-      // icon: <Role />,
+      icon: <Role />,
       label: "Role",
       to: "/auth/role",
     },

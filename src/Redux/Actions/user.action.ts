@@ -248,3 +248,28 @@ export const fetchRole = async (data: any) => {
     console.error(error);
   }
 };
+export const addRole = async (data: any) => {
+  
+  const { companyId,positionName,reportingTo,reportingToId } = data;
+  console.log('result123', data)
+  try {
+    let result: any = await apiCallPost(
+      APIURL["ADD_ROLES"],
+      {
+        companyId: companyId,
+        positionName:positionName,
+        reportingTo:reportingTo,
+        reportingToId:reportingToId,
+      },
+      {},
+      false,
+      {}
+    );
+    if (result?.status === 200) {
+      console.log('result123', result)
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

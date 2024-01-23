@@ -3,6 +3,7 @@ import { fetchRole } from '../../../../Redux/Actions/user.action';
 import { useSelector } from 'react-redux';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
+import AddRole from './AddRole/AddRole';
 
 interface Employee {
   id: number;
@@ -15,10 +16,15 @@ const Role: React.FC = () => {
   const [orgData, setOrgData] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAddRoleModal, setShowAddRoleModal] = useState(false);
 
   const organizationId = useSelector(
     (state: any) => state?.user?.companyData?.companyId
   );
+
+  const handleAddRole = () => {
+    setShowAddRoleModal(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,13 +47,14 @@ const Role: React.FC = () => {
     fetchData();
   }, [organizationId]);
 
-  const renderTree = (nodes:any) => {
+  const renderTree = (nodes: any) => {
     console.log("dsajsdadsaasdsad", nodes);
     return (
       <TreeItem
         key={nodes.nodeId}
         nodeId={nodes.rolesInfo?.roleId}
         label={nodes.rolesInfo?.displayName}
+        onLabelClick={()=>console.log(nodes,"nnnnnnnnnnnnnn")}
       >
         {Array.isArray(nodes.children) ? nodes.children.map(renderTree) : null}
       </TreeItem>
@@ -64,16 +71,26 @@ const Role: React.FC = () => {
 
   return (
     <div style={{ width: '100%', height: '500px' }}>
-   <section className="user_details">
-      <TreeView
-        aria-label="file system navigator"
-        defaultCollapseIcon="-"
-        defaultExpandIcon="+"
-      >
-        {orgData?.map(renderTree)}
-      </TreeView>
-    </section>
-  </div>
+      <section className="user_details">
+        <TreeView
+          aria-label="file system navigator"
+          defaultCollapseIcon="-"
+          defaultExpandIcon="+"
+        >
+          {orgData?.map(renderTree)}
+        </TreeView>
+
+        <button onClick={handleAddRole}>New Role</button>
+
+        {showAddRoleModal && (
+          <AddRole
+            show={showAddRoleModal}
+            onHide={() => setShowAddRoleModal(false)}
+            data={orgData}
+          />
+        )}
+      </section>
+    </div>
   );
 };
 

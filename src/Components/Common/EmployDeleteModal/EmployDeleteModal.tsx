@@ -3,13 +3,11 @@ import CommonModal from "../CommonModal/CommonModal";
 import ButtonCustom from "../Button/ButtonCustom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateEmplpoyInfo } from "../../../Redux/Actions/user.action";
 
 const EmployDeleteModal = (props: any) => {
   const navigate = useNavigate();
-  const userData = useSelector((state: any) => state?.user?.companyData);
   const employDeleteModalSchema = Yup.object().shape({
     empId: Yup.string().required("*Old Password Is Required."),
     companyId: Yup.string().required("*Old Password Is Required."),
