@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { fetchRole } from '../../../../Redux/Actions/user.action';
-import { useSelector } from 'react-redux';
-import TreeView from '@material-ui/lab/TreeView';
-import TreeItem from '@material-ui/lab/TreeItem';
-import AddRole from './AddRole/AddRole';
+import React, { useEffect, useState } from "react";
+import { fetchRole } from "../../../../Redux/Actions/user.action";
+import { useSelector } from "react-redux";
+import TreeView from "@material-ui/lab/TreeView";
+import TreeItem from "@material-ui/lab/TreeItem";
+import AddRole from "./AddRole/AddRole";
 
 interface Employee {
   id: number;
@@ -26,24 +26,23 @@ const Role: React.FC = () => {
     setShowAddRoleModal(true);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const result = await fetchRole({ companyId: organizationId });
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const result = await fetchRole({ companyId: organizationId });
 
-        if (result?.status === 200 && result?.data) {
-          console.log('result123', result);
-          setOrgData(result?.data);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Error fetching data. Please try again.');
-      } finally {
-        setLoading(false);
+      if (result?.status === 200 && result?.data) {
+        console.log("result123", result);
+        setOrgData(result?.data);
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("Error fetching data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, [organizationId]);
 
@@ -54,7 +53,7 @@ const Role: React.FC = () => {
         key={nodes.nodeId}
         nodeId={nodes.rolesInfo?.roleId}
         label={nodes.rolesInfo?.displayName}
-        onLabelClick={()=>console.log(nodes,"nnnnnnnnnnnnnn")}
+        onLabelClick={() => console.log(nodes, "nnnnnnnnnnnnnn")}
       >
         {Array.isArray(nodes.children) ? nodes.children.map(renderTree) : null}
       </TreeItem>
@@ -70,7 +69,7 @@ const Role: React.FC = () => {
   }
 
   return (
-    <div style={{ width: '100%', height: '500px' }}>
+    <div style={{ width: "100%", height: "500px" }}>
       <section className="user_details">
         <TreeView
           aria-label="file system navigator"
@@ -84,6 +83,7 @@ const Role: React.FC = () => {
 
         {showAddRoleModal && (
           <AddRole
+            fetchData={fetchData}
             show={showAddRoleModal}
             onHide={() => setShowAddRoleModal(false)}
             data={orgData}

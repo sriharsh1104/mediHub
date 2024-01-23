@@ -48,11 +48,13 @@ const AddRole = (props: any) => {
       const result: any = await addRole({
         companyId: organizationId,
         positionName: formik.values.roleName,
-        reportingTo:addRoleChart.rolesInfo.displayName,
+        reportingTo: addRoleChart.rolesInfo.displayName,
         reportingToId: addRoleChart.rolesInfo.roleId,
       });
 
       if (result?.status === 200) {
+        await props.fetchData();
+        handleCrossClick()
       } else {
       }
     } catch (error) {
@@ -61,7 +63,6 @@ const AddRole = (props: any) => {
   };
 
   const renderTree = (nodes: any) => {
-    console.log("dsajsdadsaasdsad", nodes);
     return (
       <TreeItem
         key={nodes.nodeId}
@@ -77,7 +78,6 @@ const AddRole = (props: any) => {
       </TreeItem>
     );
   };
-  console.log("first213", addRoleChart);
   return (
     <>
       <CommonModal
