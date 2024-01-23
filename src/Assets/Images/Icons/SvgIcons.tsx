@@ -56,6 +56,7 @@ export const DashboardIcon = () => (
   </svg>
 );
 
+
 export const SettingsIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

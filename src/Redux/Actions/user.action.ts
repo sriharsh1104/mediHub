@@ -55,7 +55,7 @@ export const userRegister = async (data: any) => {
   }
 };
 export const addEmployInCompany = async (data: any) => {
-  const { name, email, designation, salary, empId, companyId, DateOfJoining } =
+  const { name, email, designation, salary, empId, companyId, DateOfJoining,reportingManger } =
     data;
   console.log("firssadakjndskjat", data);
   try {
@@ -69,6 +69,7 @@ export const addEmployInCompany = async (data: any) => {
         empId: empId,
         companyId: companyId,
         doj: DateOfJoining,
+        reportingManger:reportingManger,
       },
       {},
       true,
@@ -204,4 +205,46 @@ export const setUpLoginForUser = async (data: any) => {
     console.error(error);
   }
 };
+export const reportingData = async (data: any) => {
+  const { companyId,positionName } = data;
+  try {
+    let result: any = await apiCallPost(
+      APIURL["REPORTING_DATA"],
+      {
+        companyId: companyId,
+        positionName:positionName,
+      },
+      {},
+      false,
+      {}
+    );
+    if (result?.status === 200) {
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
+export const fetchRole = async (data: any) => {
+  
+  const { companyId } = data;
+  console.log('result123', data)
+  try {
+    let result: any = await apiCallPost(
+      APIURL["FETCH_ROLE"],
+      {
+        companyId: companyId,
+      },
+      {},
+      false,
+      {}
+    );
+    if (result?.status === 200) {
+      console.log('result123', result)
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

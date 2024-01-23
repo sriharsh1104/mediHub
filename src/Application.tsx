@@ -20,6 +20,7 @@ import Setting from "./Components/Pages/Admin/Setting/Setting";
 import EmployMange from "./Components/Pages/Admin/Balance/EmployeManger/EmployManger";
 import ProfileBio from "./Components/Common/ProfileBio/ProfileBio";
 import LoginSetUp from "./Components/Pages/Admin/LoginStepup/LoginSetUp";
+import Role from "./Components/Pages/Admin/Role/Role";
 
 const Application: React.FC = () => {
   const router = createBrowserRouter([
@@ -48,7 +49,7 @@ const Application: React.FC = () => {
     {
       path: "/auth",
       element: <AuthLayout heading={undefined} />,
-      errorElement: <ErrorBoundary />,
+      // errorElement: <ErrorBoundary />,
       children: [
         {
           index: true,
@@ -67,10 +68,10 @@ const Application: React.FC = () => {
           path: "profile",
           element: <ProfileBio />,
         },
-        // {
-        //   path: "post",
-        //   element: <Post />,
-        // },
+        {
+          path: "role",
+          element: <Role />,
+        },
         // {
         //   path: "message",
         //   element: <Message />,

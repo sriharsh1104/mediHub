@@ -41,6 +41,11 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
       label: "Profile",
       to: "/auth/profile",
     },
+    {
+      // icon: <Role />,
+      label: "Role",
+      to: "/auth/role",
+    },
   ];
 
   return (
@@ -51,7 +56,7 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
             <img src={logo} height={777} width={988} alt="logo" />
           </Link>
         </div>
-        {NavLinks.map((item) => (
+        {NavLinks?.map((item) => (
           <li key={item.label}>
             <NavLink to={item.to} className="nav_link" onClick={handleSidebar}>
               <span className="nav_link_icon">{item.icon}</span>

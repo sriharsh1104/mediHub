@@ -8,4 +8,6 @@ export const APIURL = {
   UPDATE_ADMIN: "updateAdminSettings",
   UPDATE_EMPLOYDATA: "changeEmployeeData",
   SETUPUSERPASSWORD: "/setUpPassword",
+  REPORTING_DATA:"/getPositionRespectiveDetails" ,// not done
+  FETCH_ROLE:"/fetchRoles"
 };
