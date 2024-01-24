@@ -22,7 +22,7 @@ import Select from "../../../../Common/Select/Select";
 interface Employee {
   id: number;
   displayName: string;
-  reportingTo?: { name: string; id: number };
+  reportingTo?: { label: any; value: any };
   roleId: number;
 }
 
@@ -64,13 +64,18 @@ const EmployMange = () => {
       salary: "",
       empId: 0,
       DateOfJoining: "",
-      reportingTo: "",
+      reportingTo: { label: "", value: 0 },
     },
     validationSchema: employeeSchema,
     onSubmit: async (values) => {},
   });
   const addEmployForOrganization = async () => {
     try {
+      console.log(
+        "daasdadadadadasdas",
+        addRoleChart,
+        formik.values.reportingTo
+      );
       const result: EmployManger = await addEmployInCompany({
         name: formik.values.name.trim(),
         email: formik.values.email.trim(),
@@ -79,7 +84,13 @@ const EmployMange = () => {
         empId: formik.values.empId,
         DateOfJoining: formik.values.DateOfJoining.trim(),
         companyId: organizationId,
-        reportingTo: formik.values.reportingTo,
+        reportingTo:
+          addRoleChart?.rolesInfo?.roleId === 1
+            ? null
+            : {
+                displayName: formik.values.reportingTo?.label,
+                id: formik.values.reportingTo.value,
+              },
       });
       if (result?.status === 200) {
         console.log("Employee added successfully");
@@ -90,26 +101,28 @@ const EmployMange = () => {
       console.error(error);
     }
   };
-  const setIsTreeViewOpenCallback = (isOpen:any) => {
+  const setIsTreeViewOpenCallback = (isOpen: any) => {
     if (!isOpen) {
       setAddRoleChart(null); // Reset addRoleChart when closing the modal
     }
     setIsTreeViewOpen(isOpen);
   };
 
-
   useEffect(() => {
     if (addRoleChart) fetchDataForReportingManager();
   }, [addRoleChart]);
   const fetchDataForReportingManager = async () => {
     try {
-      const result = await filterReportingManager({
+      let result = await filterReportingManager({
         companyId: organizationId,
         roleId: addRoleChart?.rolesInfo?.roleId,
       });
 
       if (result?.status === 200 && result?.data) {
         console.log("result123", result);
+        if (result?.data[0]?.reportingTo == null) {
+          result.data[0].id = 1;
+        }
         setFilterData(result?.data);
       }
     } catch (error) {
@@ -146,7 +159,7 @@ const EmployMange = () => {
       salary: "",
       empId: 0,
       DateOfJoining: check.value || "",
-      reportingTo: "", // Set the initial value or use an empty string
+      reportingTo: { label: "", value: 0 }, // Set the initial value or use an empty string
     });
   }, []);
 
@@ -310,28 +323,32 @@ const EmployMange = () => {
                   />
                   {addRoleChart?.rolesInfo ? (
                     <Select
-                    label="Reporting To"
-                    placeholder="Select Reporting Manager"
-                    id="reportingTo"
-                    name="reportingTo"
-                    options={filterData?.map((item: any) => ({
-                      label: item.name,
-                      value: item.id,
-                    }))}
-                    onChange={(selectedOption: any) => {
-                      formik.setFieldValue('reportingTo', selectedOption.value);
-                    }}
-                    value={filterData.find((item: any) => item.id === formik.values.reportingTo)}
-                    // isInvalid={formik.touched.reportingTo && !!formik.errors.reportingTo}
-                    error={
-                      formik.errors.reportingTo && formik.touched.reportingTo ? (
-                        <span className="error-message">
-                          {formik.errors.reportingTo}
-                        </span>
-                      ) : null
-                    }
-                  />
-                ) : null}
+                      label="Reporting To"
+                      placeholder="Select Reporting Manager"
+                      id="reportingTo"
+                      name="reportingTo"
+                      options={filterData?.map((item: any) => ({
+                        label: item.name,
+                        value: item.id,
+                      }))}
+                      onChange={(selectedOption: any) => {
+                        console.log("first2112", selectedOption);
+                        formik.setFieldValue("reportingTo", selectedOption);
+                      }}
+                      value={filterData.find(
+                        (item: any) => item.id === formik.values.reportingTo
+                      )}
+                      // isInvalid={formik.touched.reportingTo && !!formik.errors.reportingTo}
+                      error={
+                        formik.errors.reportingTo &&
+                        formik.touched.reportingTo ? (
+                          <span className="error-message">
+                            {/* {formik.errors.reportingTo} */}
+                          </span>
+                        ) : null
+                      }
+                    />
+                  ) : null}
                   <div className="login_page_box_btn mt-4">
                     <ButtonCustom
                       type="button"
@@ -346,7 +363,10 @@ const EmployMange = () => {
           </Row>
         </Container>
         {isTreeViewOpen ? (
-          <CommonModal show={isTreeViewOpen} onClose={setIsTreeViewOpenCallback}>
+          <CommonModal
+            show={isTreeViewOpen}
+            onClose={setIsTreeViewOpenCallback}
+          >
             <TreeView
               aria-label="file system navigator"
               defaultCollapseIcon="-"

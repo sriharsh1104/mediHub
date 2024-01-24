@@ -55,7 +55,7 @@ export const userRegister = async (data: any) => {
   }
 };
 export const addEmployInCompany = async (data: any) => {
-  const { name, email, role, salary, empId, companyId, DateOfJoining,reportingManger } =
+  const { name, email, role, salary, empId, companyId, DateOfJoining,reportingTo } =
     data;
   console.log("firssadakjndskjat", data);
   try {
@@ -69,7 +69,7 @@ export const addEmployInCompany = async (data: any) => {
         empId: empId,
         companyId: companyId,
         doj: DateOfJoining,
-        reportingManger:reportingManger,
+        reportingTo:reportingTo,
       },
       {},
       true,
