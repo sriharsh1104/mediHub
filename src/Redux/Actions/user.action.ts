@@ -296,3 +296,28 @@ export const filterReportingManager = async (data: any) => {
     console.error(error);
   }
 };
+export const holidayListForEmployee = async (data: any) => {
+  
+  const { companyId,name,year,date } = data;
+  console.log('result123', data)
+  try {
+    let result: any = await apiCallPost(
+      APIURL["HOLIDAY_LIST"],
+      {
+        companyId: companyId,
+        name:name,
+        dateInEpoch:date,
+        year:year,
+      },
+      {},
+      false,
+      {}
+    );
+    if (result?.status === 200) {
+      console.log('result123', result)
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

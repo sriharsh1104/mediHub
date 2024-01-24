@@ -47,6 +47,11 @@ const Sidebar = ({ handleSidebar }: { handleSidebar?: () => void }) => {
       label: "Role",
       to: "/auth/role",
     },
+    {
+      // icon: <Role />,
+      label: "Holiday",
+      to: "/auth/holiday",
+    },
   ];
 
   return (

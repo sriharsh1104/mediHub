@@ -12,4 +12,6 @@ export const APIURL = {
   FETCH_ROLE:"/fetchRoles",
   ADD_ROLES:"/addRoles",
   FILTER_PARENT_ROLE:"/filterParentRole",
+  HOLIDAY_LIST:"/addHolidays",
+
 };

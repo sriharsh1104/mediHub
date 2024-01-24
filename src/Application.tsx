@@ -21,6 +21,7 @@ import EmployMange from "./Components/Pages/Admin/Balance/EmployeManger/EmployMa
 import ProfileBio from "./Components/Common/ProfileBio/ProfileBio";
 import LoginSetUp from "./Components/Pages/Admin/LoginStepup/LoginSetUp";
 import Role from "./Components/Pages/Admin/Role/Role";
+import Holiday from "./Components/Pages/Admin/Holiday/Holiday";
 
 const Application: React.FC = () => {
   const router = createBrowserRouter([
@@ -72,10 +73,10 @@ const Application: React.FC = () => {
           path: "role",
           element: <Role />,
         },
-        // {
-        //   path: "message",
-        //   element: <Message />,
-        // },
+        {
+          path: "holiday",
+          element: <Holiday />,
+        },
         {
           path: "setting",
           element: <Setting />,
