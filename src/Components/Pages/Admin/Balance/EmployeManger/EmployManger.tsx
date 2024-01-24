@@ -35,6 +35,8 @@ const EmployMange = () => {
   );
   const [check, setCheck] = useState<any>({ state: false, value: "" });
   const [orgData, setOrgData] = useState<any>([]);
+  const [filterData, setFilterData] = useState<any>([]);
+
   const [isTreeViewOpen, setIsTreeViewOpen] = useState(false);
 
   const employeeSchema = Yup.object().shape({
@@ -88,6 +90,13 @@ const EmployMange = () => {
       console.error(error);
     }
   };
+  const setIsTreeViewOpenCallback = (isOpen:any) => {
+    if (!isOpen) {
+      setAddRoleChart(null); // Reset addRoleChart when closing the modal
+    }
+    setIsTreeViewOpen(isOpen);
+  };
+
 
   useEffect(() => {
     if (addRoleChart) fetchDataForReportingManager();
@@ -101,7 +110,7 @@ const EmployMange = () => {
 
       if (result?.status === 200 && result?.data) {
         console.log("result123", result);
-        setOrgData(result?.data);
+        setFilterData(result?.data);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -305,14 +314,14 @@ const EmployMange = () => {
                     placeholder="Select Reporting Manager"
                     id="reportingTo"
                     name="reportingTo"
-                    options={orgData.map((item: any) => ({
+                    options={filterData?.map((item: any) => ({
                       label: item.name,
                       value: item.id,
                     }))}
                     onChange={(selectedOption: any) => {
                       formik.setFieldValue('reportingTo', selectedOption.value);
                     }}
-                    value={orgData.find((item: any) => item.id === formik.values.reportingTo)}
+                    value={filterData.find((item: any) => item.id === formik.values.reportingTo)}
                     // isInvalid={formik.touched.reportingTo && !!formik.errors.reportingTo}
                     error={
                       formik.errors.reportingTo && formik.touched.reportingTo ? (
@@ -337,7 +346,7 @@ const EmployMange = () => {
           </Row>
         </Container>
         {isTreeViewOpen ? (
-          <CommonModal show={isTreeViewOpen}>
+          <CommonModal show={isTreeViewOpen} onClose={setIsTreeViewOpenCallback}>
             <TreeView
               aria-label="file system navigator"
               defaultCollapseIcon="-"

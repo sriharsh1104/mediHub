@@ -8,6 +8,7 @@ interface CommonModals {
   onHide?: () => void;
   heading?: ReactNode;
   className?: string;
+  onClose?: (isOpen: boolean) => void; 
   variant?: "small" | "large";
   children?: ReactNode;
   backdropClassName?: string;
@@ -15,11 +16,17 @@ interface CommonModals {
   crossBtn?: boolean;
 }
 const CommonModal = (props: CommonModals) => {
+  const handleClose = () => {
+    if (props.onClose) {
+      props.onClose(false); // Call onClose prop with false to close the modal
+    }
+  };
   return (
     <>
       <Modal
         show={props.show}
-        onHide={props.onHide}
+        // onHide={props.onHide}
+        onHide={handleClose} 
         centered
         // backdropClassName={props.backdropClassName}
         className={`${props.className} commonModal`}
@@ -31,7 +38,7 @@ const CommonModal = (props: CommonModals) => {
               <h4>{props.heading}</h4>
             </Modal.Title>
             {props.crossBtn && (
-              <button onClick={props.onHide} className="modal_close_btn">
+              <button onClick={handleClose} className="modal_close_btn">
                 <img src={closeIcon} alt="close-icon" />
               </button>
             )}
