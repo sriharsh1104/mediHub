@@ -24,7 +24,7 @@ const DatePickerCustom = ({
   const onChangeHandler = (date: any) => {
     const finalDateSet = moment(date).format("DD/MM/YYYY");
     onChange(finalDateSet);
-  
+
     const newData = { ...data }; // Create a shallow copy of data
     newData[dateType] = finalDateSet;
     checkSetter({ state: !check.state, value: finalDateSet });
@@ -43,7 +43,7 @@ const DatePickerCustom = ({
       setResetState(false);
     }
   }, [resetState]);
-  const minDate = moment().add(1, "days").toDate();
+  // const minDate = moment().add(1, "days").toDate();
 
   return (
     <>
@@ -60,7 +60,6 @@ const DatePickerCustom = ({
               onChangeHandler(date);
             }}
             placeholderText="DD/MM/YYYY"
-            minDate={minDate}
             dateFormat={dateFormat}
             onKeyDown={(e) => {
               e.preventDefault();
