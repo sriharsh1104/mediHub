@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import "./login.css";
+import React from "react";
+import "./loginPage.css";
 import Link from "next/link";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { login } from "@/api/user.Action";
 
 
 const LoginPage = () => {
@@ -15,14 +16,14 @@ const LoginPage = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Please enter a valid email address.")
-      .required("*This field is required.")
-      .max(300, "Maximum 300 characters are allowed for email.")
+      .email("Please Enter a Valid Email Address.")
+      .required("*This Field Is Required.")
+      .max(300, "Maximum 300 Characters Are Allowed For Email.")
       .test("No-Consecutive-Dots", "Invalid Email", (value) => {
         if (!value) return true;
         return !/\.{2,}/.test(value);
       }),
-    password: Yup.string().required("Please enter the password."),
+    password: Yup.string().required("Please Enter The Password."),
   });
   const onSubmit = async (values: any) => {
     try {
@@ -31,12 +32,12 @@ const LoginPage = () => {
         password: values?.password,
       };
       console.log('loginDetails', loginDetails)
-      // const result: any = await login(loginData);
-      // if (result===200) {
-      //   toast.success("Logged In SuccessFully");
-      //   if (result?.status === 200) {
-      //   }
-      // }
+      const result: any = await login(loginDetails);
+      if (result===200) {
+        toast.success("Logged In SuccessFully");
+        if (result?.status === 200) {
+        }
+      }
     } catch (error) {
 
       console.error(error);

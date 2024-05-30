@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('/images/cat.jpg');  /* Correct path for Next.js */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUp-container {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px; /* Set a maximum width to control the width of the container */
+    width: 100%; /* Ensure the container takes full width */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.signUp-container h1 {
+    margin-bottom: 24px;
+    font-size: 2em;
+    color: #333;
+}
+
+.signUp-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #2575fc;
+    outline: none;
+}
+
+.signUp-button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.signUp-button:hover {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+}
+
+.signUp-button:active {
+    background: linear-gradient(45deg, #1c3d8c, #1b65cc);
+}
+
+@media (max-width: 600px) {
+    .signUp-container {
+        padding: 20px;
+    }
+
+    .signUp-container h1 {
+        font-size: 1.5em;
+    }
+
+    .signUp-button {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+}
