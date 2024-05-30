@@ -20,4 +20,12 @@ export const login = async (data: any) => {
     console.log("error login", error);
   }
 };
+export const updateProfile = async (data: any) => {
+  try {
+    let result: any = await apiCallPost(APIURL["UPDATE_PROFILE"], data, {}, false, {});
+    return result;
+  } catch (error) {
+    console.log("error login", error);
+  }
+};
 

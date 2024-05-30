@@ -6,9 +6,10 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { login } from "@/api/user.Action";
-
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  const router = useRouter();
   const initialValues = {
     email: "",
     password: "",
@@ -31,52 +32,63 @@ const LoginPage = () => {
         email: values?.email,
         password: values?.password,
       };
-      console.log('loginDetails', loginDetails)
+      console.log("loginDetails", loginDetails);
       const result: any = await login(loginDetails);
-      if (result===200) {
+      if (result === 200) {
         toast.success("Logged In SuccessFully");
         if (result?.status === 200) {
+          router.push('/profile');
+          
+        } else{
         }
       }
     } catch (error) {
-
       console.error(error);
     }
   };
 
-  
-    return (
-      <div className="login-container">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          <Form className="login-form">
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <Field type="email" id="email" name="email" />
-              <ErrorMessage name="email" component="div" className="error-message" />
-            </div>
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <Field type="password" id="password" name="password" />
-              <ErrorMessage name="password" component="div" className="error-message" />
-            </div>
-            <button type="submit" className="login-button">
-              Login
-            </button>
-            <p>
-              Don’t have an account?{" "}
-              <Link href="/signUp">
-                {" "}
-                <a color="black">Sign up</a>
-              </Link>
-            </p>
-          </Form>
-        </Formik>
-      </div>
-    );
-  };
+  return (
+    <div className="login-container">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        validateOnChange={true}
+        validateOnBlur={true}
+      >
+        <Form className="login-form">
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <Field type="email" id="email" name="email" />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="error-message"
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <Field type="password" id="password" name="password" />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="error-message"
+            />
+          </div>
+          <button type="submit" className="login-button">
+            Login
+          </button>
+          <p>
+            Don’t have an account?{" "}
+            <Link href="/signUp">
+              {" "}
+              Sign up
+            </Link>
+          </p>
+        </Form>
+      </Formik>
+    </div>
+  );
+};
 
 export default LoginPage;
